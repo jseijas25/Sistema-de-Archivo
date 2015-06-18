@@ -1,17 +1,19 @@
 package modelos;
 
 
+import funciones.AccessLevel;
+
 public class Usuario {
 	private int id;
 	private String nombre;
     private String clave;
-    private int nivel;
+    private AccessLevel nivel;
     private boolean active;
 
 	public Usuario() {
 	}
 
-    public Usuario(int id, String nombre, String clave, int nivel, boolean active) {
+    public Usuario(int id, String nombre, String clave, AccessLevel nivel, boolean active) {
         this.id = id;
         this.nombre = nombre;
         this.clave = clave;
@@ -43,11 +45,11 @@ public class Usuario {
         this.clave = clave;
     }
 
-    public int getNivel() {
+    public AccessLevel getNivel() {
         return nivel;
     }
 
-    public void setNivel(int nivel) {
+    public void setNivel(AccessLevel nivel) {
         this.nivel = nivel;
     }
 

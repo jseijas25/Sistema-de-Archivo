@@ -1,5 +1,6 @@
 package dataBase;
 
+import funciones._Con;
 import modelos.Estudiante;
 
 import java.sql.PreparedStatement;
@@ -13,7 +14,7 @@ public class EstudianteDAO {
 
     public static boolean findAll(ArrayList<Estudiante> estudiantes) {
         try {
-            PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement("select * from  estudiante");
+            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("select * from  estudiante");
             ResultSet rs = ps.executeQuery();
             Estudiante estudiante = new Estudiante();
             while (rs.next()) {
@@ -25,7 +26,7 @@ public class EstudianteDAO {
 
                 estudiantes.add(estudiante);
             }
-            DBConnection.getInstance().closeConnection();
+            _Con.getInstance().closeConnectionDB();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -38,7 +39,7 @@ public class EstudianteDAO {
      */
     public static boolean create (Estudiante estudiante){
         try {
-            PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement
+            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement
                     ("insert into estudiante (cedula, nombre, apellido, genero, solvente) values (?,?,?,?,?)");
             ps.setInt(1, estudiante.getCedula());
             ps.setString(2, estudiante.getNombre());
@@ -47,7 +48,7 @@ public class EstudianteDAO {
             ps.setBoolean(5, estudiante.isSolvente());
 
             ps.execute();
-            DBConnection.getInstance().closeConnection();
+            _Con.getInstance().closeConnectionDB();
             return true;
         } catch (SQLException | NullPointerException e) {
             e.printStackTrace();
@@ -61,7 +62,7 @@ public class EstudianteDAO {
 
     public static boolean read (Estudiante estudiante) {
         try {
-            PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement("select * from  estudiante where cedula=?");
+            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("select * from  estudiante where cedula=?");
             ps.setInt(1, estudiante.getCedula());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -70,10 +71,10 @@ public class EstudianteDAO {
                 estudiante.setGenero(rs.getInt("genero"));
                 estudiante.setSolvente(rs.getBoolean("solvente"));
 
-                DBConnection.getInstance().closeConnection();
+                _Con.getInstance().closeConnectionDB();
                 return true;
             }else{
-                DBConnection.getInstance().closeConnection();
+                _Con.getInstance().closeConnectionDB();
                 return false;
             }
         } catch (SQLException e){
@@ -86,7 +87,7 @@ public class EstudianteDAO {
 
     public static boolean update (Estudiante estudiante) {
         try {
-            PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement("update estudiante set nombre=?, apellido=?, genero=?, solvente=? where cedula=?");
+            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("update estudiante set nombre=?, apellido=?, genero=?, solvente=? where cedula=?");
             ps.setInt(5, estudiante.getCedula());
             ps.setString(1, estudiante.getNombre());
             ps.setString(2, estudiante.getApellido());
@@ -103,7 +104,7 @@ public class EstudianteDAO {
 
     public static boolean delete (int cedula){
         try {
-            PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement("delete from estudiante where cedula=?");
+            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("delete from estudiante where cedula=?");
             ps.setInt(1, cedula);
             ps.execute();
             return true;

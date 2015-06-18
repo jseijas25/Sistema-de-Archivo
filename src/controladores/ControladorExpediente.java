@@ -13,14 +13,14 @@ import reportes.ReportePdfSolvencia;
 import vistas.VistaExpedientes;
 import dataBase.ExpedienteDAO;
 
-public class ControladorVistaExpediente implements ActionListener,KeyListener {
+public class ControladorExpediente extends BaseControlador {
 
     private VistaExpedientes vista;
 	private Expediente xexpediente;
 
-	public ControladorVistaExpediente (VistaExpedientes xvista, Expediente xExpediente) {
+	public ControladorExpediente(VistaExpedientes xvista) {
 		this.vista=xvista;
-		this.xexpediente=xExpediente;
+		this.xexpediente= new Expediente();
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class ControladorVistaExpediente implements ActionListener,KeyListener {
         }
 
 		else if(accion.getSource().equals(vista.getBtnLimpiar())){
-			Vaciar();
+			vaciar();
 			}
 
 		else if(accion.getSource().equals(vista.getBtnBuscar())){
@@ -78,7 +78,7 @@ public class ControladorVistaExpediente implements ActionListener,KeyListener {
 							try{
 								if (baseDatos.AgregarExpediente(xexpediente)){
 									JOptionPane.showMessageDialog(vista, "Expediente Registrado Exitosamente");
-									Vaciar();
+									vaciar();
 							
 								}
 						
@@ -206,18 +206,6 @@ else if(accion.getSource().equals(vista.getBtnModificar())){
 				&&(accion.getKeyCode()== KeyEvent.VK_ENTER))
 			vista.getTxtApellido().requestFocus();*/
 		}
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 		
 		
 	//-------------> vaciar campos <-------------

@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import funciones._Con;
 import modelos.Expediente;
 
 public class ExpedienteDAO {
@@ -19,7 +20,7 @@ public class ExpedienteDAO {
 
     public static boolean findAllWithID(ArrayList<Expediente> expedientes, int ci_estudiante) {
         try {
-            PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement("select * from  expediente");
+            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("select * from  expediente");
             ResultSet rs = ps.executeQuery();
             Expediente expediente = new Expediente();
             while (rs.next()) {
@@ -38,7 +39,7 @@ public class ExpedienteDAO {
                     expedientes.add(expediente);
                 }
             }
-            DBConnection.getInstance().closeConnection();
+            _Con.getInstance().closeConnectionDB();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -52,7 +53,7 @@ public class ExpedienteDAO {
 
     public static boolean findAll(ArrayList<Expediente> expedientes) {
         try {
-            PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement("select * from  expediente");
+            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("select * from  expediente");
             ResultSet rs = ps.executeQuery();
             Expediente expediente = new Expediente();
             while (rs.next()) {
@@ -69,7 +70,7 @@ public class ExpedienteDAO {
 
                 expedientes.add(expediente);
             }
-            DBConnection.getInstance().closeConnection();
+            _Con.getInstance().closeConnectionDB();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -82,7 +83,7 @@ public class ExpedienteDAO {
      */
     public static boolean create (Expediente expediente){
         try {
-            PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement
+            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement
                     ("insert into expediente (id, id_estudiante, id_programa, number, pictures, cv, negativePhotocopy, grades,birthCertificate, idPhotocopy) values (?,?,?,?,?,?,?,?,?,?)");
             ps.setInt(1, expediente.getId());
             ps.setInt(2, expediente.getId_Estudiante());
@@ -96,7 +97,7 @@ public class ExpedienteDAO {
             ps.setBoolean(10, expediente.isIdPhotocopyChecked());
 
             ps.execute();
-            DBConnection.getInstance().closeConnection();
+            _Con.getInstance().closeConnectionDB();
             return true;
         } catch (SQLException | NullPointerException e) {
             e.printStackTrace();
@@ -110,7 +111,7 @@ public class ExpedienteDAO {
 
     public static boolean read (Expediente expediente) {
         try {
-            PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement("select * from  expediente where id=?");
+            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("select * from  expediente where id=?");
             ps.setInt(1, expediente.getId());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -123,10 +124,10 @@ public class ExpedienteDAO {
                 expediente.setGradesChecked(rs.getBoolean("grades"));
                 expediente.setBirthCertificateChecked(rs.getBoolean("birthCertificate"));
                 expediente.setIdPhotocopyChecked(rs.getBoolean("idPhotocopy"));
-                DBConnection.getInstance().closeConnection();
+                _Con.getInstance().closeConnectionDB();
                 return true;
             }else{
-                DBConnection.getInstance().closeConnection();
+                _Con.getInstance().closeConnectionDB();
                 return false;
             }
         } catch (SQLException e){
@@ -138,7 +139,7 @@ public class ExpedienteDAO {
 
     public static boolean update (Expediente expediente) {
         try {
-            PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement("update expediente set id_estudiante=?, id_programa=?, number=?, pictures=?, cv=?, negativePhotocopy=?, grades=?, birthCertificate=?, idPhotocopy=? where id=?");
+            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("update expediente set id_estudiante=?, id_programa=?, number=?, pictures=?, cv=?, negativePhotocopy=?, grades=?, birthCertificate=?, idPhotocopy=? where id=?");
             ps.setInt(10, expediente.getId());
             ps.setInt(1, expediente.getId_Estudiante());
             ps.setInt(2, expediente.getId_Programa());
@@ -159,7 +160,7 @@ public class ExpedienteDAO {
 
     public static boolean delete (int id){
         try {
-            PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement("delete from expediente where id=?");
+            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("delete from expediente where id=?");
             ps.setInt(1, id);
             ps.execute();
             return true;

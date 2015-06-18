@@ -14,12 +14,12 @@ import vistas.VistaUsuarios;
 import dataBase.UsuarioDAO;
 import funciones.Libreria;
 
-public class ControladorVistaUsuarios implements ActionListener,KeyListener {
+public class ControladorUsuarios implements ActionListener,KeyListener {
 	private VistaUsuarios vista;
 	private Usuario xusuario;
-	public ControladorVistaUsuarios (VistaUsuarios xvista, Usuario xUsuario) {
-		this.vista=xvista;
-		this.xusuario=xUsuario;
+	public ControladorUsuarios(VistaUsuarios vistaUsuarios) {
+		this.vista=vistaUsuarios;
+		this.xusuario= new Usuario();
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class ControladorVistaUsuarios implements ActionListener,KeyListener {
 //-----------------------------------Limpiar--------------------------------------------------		
 	
 		else if(accion.getSource().equals(vista.getBtnLimpiar())){
-			Vaciar();
+			vaciar();
 			}
 	
 //------------------------------------Buscar--------------------------------------------------
@@ -116,7 +116,7 @@ public class ControladorVistaUsuarios implements ActionListener,KeyListener {
 							try{
 								if (baseDatos.AgregarUsuario(xusuario)){
 									JOptionPane.showMessageDialog(vista, "Usuario Registrado Exitosamente");
-									Vaciar();
+									vaciar();
 							
 								}
 						
@@ -210,7 +210,7 @@ else if(accion.getSource().equals(vista.getBtnEliminar())){
 			
 				if (baseDatos.ModificarUsuario(xusuario)){
 					JOptionPane.showMessageDialog(vista, "Usuario Desincorporado Exitosamente");
-					this.Vaciar();
+					this.vaciar();
 					
 				
 				}
@@ -306,17 +306,7 @@ else if(accion.getSource().equals(vista.getBtnEliminar())){
 	
 	
 	//-------------> vaciar campos <-------------
-	public void Vaciar(){
-		vista.setTxtCed(null);
-		vista.setTxtNombre(null);
-		vista.setTxtApellido(null);
-		vista.setComboGenero(-1);
-		vista.setTxtNombreUsuario(null);
-		vista.setTxtContrasena(null);
-		vista.setComboTipo(-1);
-		vista.setTxtEstado(null);
-		vista.getTxtCed().requestFocus();
-		
+	public void vaciar(){
 	}
 	
 	
