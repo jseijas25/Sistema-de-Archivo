@@ -1,6 +1,8 @@
 package vistas;
 
 import controladores.ControladorEstudiante;
+import dataBase.ExpedienteDAO;
+import funciones.OperationType;
 import funciones._Con;
 import modelos.Estudiante;
 
@@ -9,11 +11,12 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class VistaEstudiante extends BaseVista {
-    private JButton btnCrear, btnEditar, btnBorrar, btnSalir;
+    private JButton btnCrear, btnEditar, btnBorrar, btnSalir, btnCrearExpediente;
 
     private JTextField txtCedula, txtNombre, txtApellido;
     private JRadioButton rdbHombre, rdbMujer;
     private JTabbedPane tbbExpediente;
+    private JPanel pnlNuevoExpediente;
     private ArrayList<PestanaExpediente> pestanaExpedientes;
     private boolean editable;
 
@@ -30,7 +33,6 @@ public class VistaEstudiante extends BaseVista {
 
         ControladorEstudiante controlador;
         controlador = new ControladorEstudiante(this);
-        pnlAux = new JPanel();
         editable = true;
 
         lblCedula = new JLabel("Cedula: ");
@@ -54,14 +56,10 @@ public class VistaEstudiante extends BaseVista {
 
         tbbExpediente = new JTabbedPane();
         pestanaExpedientes = new ArrayList<>();
-        pestanaExpedientes.add(new PestanaExpediente());
-        for (int i = 0; i < pestanaExpedientes.size(); i++) {
-            tbbExpediente.addTab("Expediente: "+i, pestanaExpedientes.get(i));
-        }
-        pnlAux = new JPanel();
-        JButton crearExpediente = new JButton("Crear Expediente");
-        pnlAux.add(crearExpediente);
-        tbbExpediente.addTab("+", pnlAux);
+        pnlNuevoExpediente = new JPanel();
+        btnCrearExpediente = new JButton("Crear Expediente");
+        btnCrearExpediente.addActionListener(controlador);
+        pnlNuevoExpediente.add(btnCrearExpediente);
 
         pnlAux = new JPanel();
         pnlDatosEstudiante = new JPanel(new GridLayout(4,2));
@@ -142,6 +140,16 @@ public class VistaEstudiante extends BaseVista {
         }else {
             rdbMujer.setSelected(true);
         }
+        recargarExpedientes();
+    }
+
+    public void recargarExpedientes() {
+        tbbExpediente.removeAll();
+        for (int i = 0; i < pestanaExpedientes.size(); i++) {
+            tbbExpediente.addTab("Expediente: "+i, pestanaExpedientes.get(i));
+        }
+        tbbExpediente.addTab("+", pnlNuevoExpediente);
+        this.pack();
     }
 
     public void setEditable() {
@@ -176,6 +184,22 @@ public class VistaEstudiante extends BaseVista {
 
     public JButton getBtnSalir() {
         return btnSalir;
+    }
+
+    public JButton getBtnCrearExpediente() {
+        return btnCrearExpediente;
+    }
+
+    public JTabbedPane getTbbExpediente() {
+        return tbbExpediente;
+    }
+
+    public JPanel getPnlNuevoExpediente() {
+        return pnlNuevoExpediente;
+    }
+
+    public ArrayList<PestanaExpediente> getPestanaExpedientes() {
+        return pestanaExpedientes;
     }
 
     public boolean isEditable() {

@@ -31,6 +31,7 @@ public class _Con {
     private Usuario usuario;
     private Estudiante estudiante;
     private Programa programa;
+    private Expediente expediente;
     private ArrayList<Expediente> expedientes;
     private OperationType operation;
 
@@ -81,6 +82,14 @@ public class _Con {
 
     public void setPrograma(Programa programa) {
         this.programa = programa;
+    }
+
+    public Expediente getExpediente() {
+        return expediente;
+    }
+
+    public void setExpediente(Expediente expediente) {
+        this.expediente = expediente;
     }
 
     public ArrayList<Expediente> getExpedientes() {

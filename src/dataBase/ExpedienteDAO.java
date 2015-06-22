@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import funciones._Con;
 import modelos.Expediente;
+import modelos.Programa;
 
 public class ExpedienteDAO {
 
@@ -18,7 +19,7 @@ public class ExpedienteDAO {
     que se pasa como parametro
      */
 
-    public static boolean findAllWithID(ArrayList<Expediente> expedientes, int ci_estudiante) {
+    public static boolean findAllByID(ArrayList<Expediente> expedientes, int ci_estudiante) {
         try {
             PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("SELECT * FROM  expediente WHERE id_estudiante=? ORDER BY id");
             ps.setInt(1, ci_estudiante);
@@ -29,9 +30,40 @@ public class ExpedienteDAO {
                 expediente.setId_Estudiante(rs.getInt("id_estudiante"));
                 expediente.setId_Programa(rs.getInt("id_programa"));
                 expediente.setNumber(rs.getInt("number"));
-                expediente.setPicturesChecked(rs.getBoolean("picture"));
+                expediente.setPicturesChecked(rs.getBoolean("pictures"));
                 expediente.setCvChecked(rs.getBoolean("cv"));
-                expediente.setNegativePhotocopyChecked(rs.getBoolean("negativePhoto"));
+                expediente.setNegativePhotocopyChecked(rs.getBoolean("negativePhotocopy"));
+                expediente.setGradesChecked(rs.getBoolean("grades"));
+                expediente.setBirthCertificateChecked(rs.getBoolean("birthCertificate"));
+                expediente.setIdPhotocopyChecked(rs.getBoolean("idPhotocopy"));
+
+                expedientes.add(expediente);
+            }
+            _Con.getInstance().closeConnectionDB();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean findAllByProgram(ArrayList<Expediente> expedientes, String nombrePrograma){
+        Programa programa = new Programa();
+        programa.setName(nombrePrograma);
+        ProgramaDAO.read(programa);
+        try {
+            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("SELECT * FROM  expediente WHERE id_programa=? ORDER BY id");
+            ps.setInt(1, programa.getId());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Expediente expediente = new Expediente();
+                expediente.setId(rs.getInt("id"));
+                expediente.setId_Estudiante(rs.getInt("id_estudiante"));
+                expediente.setId_Programa(rs.getInt("id_programa"));
+                expediente.setNumber(rs.getInt("number"));
+                expediente.setPicturesChecked(rs.getBoolean("pictures"));
+                expediente.setCvChecked(rs.getBoolean("cv"));
+                expediente.setNegativePhotocopyChecked(rs.getBoolean("negativePhotocopy"));
                 expediente.setGradesChecked(rs.getBoolean("grades"));
                 expediente.setBirthCertificateChecked(rs.getBoolean("birthCertificate"));
                 expediente.setIdPhotocopyChecked(rs.getBoolean("idPhotocopy"));
@@ -62,7 +94,7 @@ public class ExpedienteDAO {
                 expediente.setNumber(rs.getInt("number"));
                 expediente.setPicturesChecked(rs.getBoolean("pictures"));
                 expediente.setCvChecked(rs.getBoolean("cv"));
-                expediente.setNegativePhotocopyChecked(rs.getBoolean("negativePhoto"));
+                expediente.setNegativePhotocopyChecked(rs.getBoolean("negativePhotocopy"));
                 expediente.setGradesChecked(rs.getBoolean("grades"));
                 expediente.setBirthCertificateChecked(rs.getBoolean("birthCertificate"));
                 expediente.setIdPhotocopyChecked(rs.getBoolean("idPhotocopy"));
@@ -129,7 +161,7 @@ public class ExpedienteDAO {
                 expediente.setNumber(rs.getInt("number"));
                 expediente.setPicturesChecked(rs.getBoolean("pictures"));
                 expediente.setCvChecked(rs.getBoolean("cv"));
-                expediente.setNegativePhotocopyChecked(rs.getBoolean("negativePhoto"));
+                expediente.setNegativePhotocopyChecked(rs.getBoolean("negativePhotocopy"));
                 expediente.setGradesChecked(rs.getBoolean("grades"));
                 expediente.setBirthCertificateChecked(rs.getBoolean("birthCertificate"));
                 expediente.setIdPhotocopyChecked(rs.getBoolean("idPhotocopy"));

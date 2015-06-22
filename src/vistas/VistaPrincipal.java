@@ -97,10 +97,6 @@ public class VistaPrincipal extends JFrame {
         menRegistro.add(itmExpedientes);
 
 
-        this.add(pnlTitulo, BorderLayout.NORTH);
-        this.add(lblFondo, BorderLayout.CENTER);
-        this.add(pnlAutor, BorderLayout.SOUTH);
-        this.add(pnlBotonera, BorderLayout.WEST);
 
         controladorPrincipal = new ControladorPrincipal(this);
         btnSalir.addActionListener(controladorPrincipal);
@@ -112,6 +108,10 @@ public class VistaPrincipal extends JFrame {
         itmReportes.addActionListener(controladorPrincipal);
         itmExpedientes.addActionListener(controladorPrincipal);
 
+        this.add(pnlTitulo, BorderLayout.NORTH);
+        this.add(lblFondo, BorderLayout.CENTER);
+        this.add(pnlAutor, BorderLayout.SOUTH);
+        this.add(pnlBotonera, BorderLayout.WEST);
         this.setUndecorated(true);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setVisible(true);
@@ -120,7 +120,7 @@ public class VistaPrincipal extends JFrame {
         this.add(lblFondo);
         this.getContentPane().setBackground(Color.WHITE);
         this.setIconImage(new ImageIcon(_Con.RUTA + "logo/logo.png").getImage());
-
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     public JMenuItem getItmUsuario() {
@@ -163,7 +163,7 @@ public class VistaPrincipal extends JFrame {
         int fuera = JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea salir?", "Salir del Sistema", JOptionPane.YES_NO_OPTION);
         if (fuera == JOptionPane.OK_OPTION) {
             JOptionPane.showMessageDialog(this, "Hasta Luego", "Salir del Sistema", 1);
-            System.exit(0);// finaliza un programa
+            this.dispose();
         }
     }
 }

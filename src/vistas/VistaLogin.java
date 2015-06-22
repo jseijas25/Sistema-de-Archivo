@@ -67,6 +67,7 @@ public class VistaLogin extends BaseVista {
         this.setTitle("Ingresar");
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 
 	public JTextField getTxtUsuario() {

@@ -54,7 +54,6 @@ public class VistaBuscarEstudiante extends BaseVista {
     }
 
     public boolean getData(Estudiante estudiante) {
-        System.out.println(txtCedula.getText().length());
         if (txtCedula.getText().isEmpty()) {
             setError("El campo cedula no puede estar vacio");
             return false;

@@ -38,7 +38,7 @@ public class VistaUsuario extends BaseVista {
         pwdClave.addActionListener(controlador);
 
         lblNivel = new JLabel("Nivel: ");
-        cmbNivel=new JComboBox();
+        cmbNivel=new JComboBox<>();
 
         cmbNivel.addItem(AccessLevel.USER);
         cmbNivel.addItem(AccessLevel.ADMIN);
@@ -94,29 +94,21 @@ public class VistaUsuario extends BaseVista {
     }
 
     public boolean getData(Usuario usuario){
-        if(pwdClave.getText().isEmpty()){
+        if(pwdClave.getPassword().length == 0){
             setError("El campo \"Clave\" no puede estar vacio");
             return false;
         }
-        usuario.setClave(pwdClave.getText());
+        usuario.setClave(String.valueOf(pwdClave.getPassword()));
         usuario.setNivel((AccessLevel) cmbNivel.getSelectedItem());
-
-        if(active.isSelected()){
-            usuario.setActive(true);
-        }else
-            usuario.setActive(false);
+        usuario.setActive(active.isSelected());
         return true;
     }
 
     public void setData(Usuario usuario){
-        txtNombreUsuario.setText(String.valueOf(usuario.getNombre()));
-        pwdClave.setText(usuario.getClave());
+        txtNombreUsuario.setText(usuario.getNombre());
+        //pwdClave.setText(usuario.getClave());
         cmbNivel.setSelectedItem(String.valueOf(usuario.getNivel()));
-        if(usuario.isActive()){
-            active.setSelected(true);
-        }else {
-            active.setSelected(false);
-        }
+        active.setSelected(usuario.isActive());
 
     }
 

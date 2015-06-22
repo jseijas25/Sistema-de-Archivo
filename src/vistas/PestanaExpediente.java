@@ -1,6 +1,6 @@
 package vistas;
 
-import controladores.ControladorExpediente;
+import controladores.BaseControlador;
 import dataBase.ProgramaDAO;
 import funciones._Con;
 import modelos.Expediente;
@@ -17,13 +17,38 @@ public class PestanaExpediente extends JPanel {
     private boolean editable;
     private JButton btnCrear, btnEditar, btnBorrar, btnSolvencia;
 
+    public boolean getData(Expediente expediente, BaseVista vista) {
+        if (txtNumero.getText().isEmpty()) {
+            vista.setError("El campo # no puede estar vacio");
+            return false;
+        }
+        try {
+            expediente.setNumber(Integer.parseInt(txtNumero.getText()));
+        } catch (NumberFormatException e) {
+            vista.setError("El campo # debe ser numerico");
+            return false;
+        }
+        if (expediente.getNumber() <= 0) {
+            vista.setError("El campo # debe ser un número mayor que 0");
+            return false;
+        }
+        Programa programa = new Programa();
+        programa.setName(String.valueOf(boxPrograma.getSelectedItem()));
+        ProgramaDAO.read(programa);
+        expediente.setId_Programa(programa.getId());
+        expediente.setPicturesChecked(chkFotos.isSelected());
+        expediente.setCvChecked(chkCV.isSelected());
+        expediente.setNegativePhotocopyChecked(chkNegativo.isSelected());
+        expediente.setGradesChecked(chkNotas.isSelected());
+        expediente.setBirthCertificateChecked(chkPartida.isSelected());
+        expediente.setIdPhotocopyChecked(chkCedula.isSelected());
+        return true;
+    }
 
     public PestanaExpediente() {
         JLabel lblNumero, lblPrograma, lblFotos, lblCV, lblNegativo, lblNotas, lblPartida, lblCedula;
         JPanel pnlUno, pnlTres;
         Icon icoCrear,icoBorrar,icoSalir,icoEditar, icoSolvencia;
-        ControladorExpediente controlador;
-        controlador = new ControladorExpediente(this);
         editable = true;
 
         icoCrear         = new ImageIcon(_Con.RUTA + "32x32/crear.png");
@@ -90,22 +115,19 @@ public class PestanaExpediente extends JPanel {
             case READ:
                 pnlTres.setLayout(new GridLayout(3,1));
                 btnEditar = new JButton("Editar", icoEditar);
-                btnEditar.addActionListener(controlador);
                 btnBorrar = new JButton("Borrar", icoBorrar);
-                btnBorrar.addActionListener(controlador);
                 btnSolvencia = new JButton("Solvencia", icoSolvencia);
-                btnSolvencia.addActionListener(controlador);
                 pnlTres.add(btnEditar);
                 pnlTres.add(btnBorrar);
                 pnlTres.add(btnSolvencia);
                 setEditable();
                 break;
             case CREATE:
-                pnlTres.setLayout(new GridLayout(2,1));
+                pnlTres.setLayout(new GridLayout(2, 1));
                 btnCrear = new JButton("Crear", icoCrear);
-                btnCrear.addActionListener(controlador);
                 btnBorrar = new JButton("Cancelar", icoSalir);
                 pnlTres.add(btnCrear);
+                pnlTres.add(btnBorrar);
                 break;
         }
 
@@ -113,6 +135,20 @@ public class PestanaExpediente extends JPanel {
         this.add(pnlUno, BorderLayout.CENTER);
         this.add(pnlTres, BorderLayout.EAST);
 
+    }
+
+    public void setData(Expediente expediente){
+        txtNumero.setText(String.valueOf(expediente.getNumber()));
+        Programa programa = new Programa();
+        programa.setId(expediente.getId_Programa());
+        ProgramaDAO.readByID(programa);
+        boxPrograma.setSelectedItem(programa.getName());
+        chkFotos.setSelected(expediente.isPicturesChecked());
+        chkCV.setSelected(expediente.isCvChecked());
+        chkNegativo.setSelected(expediente.isNegativePhotocopyChecked());
+        chkNotas.setSelected(expediente.isGradesChecked());
+        chkPartida.setSelected(expediente.isBirthCertificateChecked());
+        chkCedula.setSelected(expediente.isIdPhotocopyChecked());
     }
 
     public boolean isEditable() {
@@ -150,5 +186,16 @@ public class PestanaExpediente extends JPanel {
 
     public JButton getBtnSolvencia() {
         return btnSolvencia;
+    }
+
+    public void setControlador(BaseControlador controlador){
+        if(btnEditar!=null)     btnEditar.addActionListener(controlador);
+        if(btnBorrar!=null)     btnBorrar.addActionListener(controlador);
+        if(btnSolvencia!=null)  btnSolvencia.addActionListener(controlador);
+        if(btnCrear!=null)      btnCrear.addActionListener(controlador);
+    }
+
+    public void reload(){
+
     }
 }

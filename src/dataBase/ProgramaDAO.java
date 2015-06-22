@@ -50,6 +50,26 @@ public class ProgramaDAO {
         return false;
     }
 
+    public static boolean readByID(Programa programa){
+        try {
+            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("SELECT * FROM  programa WHERE id=?");
+            ps.setInt(1, programa.getId());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                programa.setName(rs.getString("name"));
+                programa.setActive(rs.getBoolean("active"));
+                programa.setRecordCount(rs.getInt("recordCount"));
+                _Con.getInstance().closeConnectionDB();
+                return true;
+            }else{
+                _Con.getInstance().closeConnectionDB();
+            }
+        } catch (SQLException | NullPointerException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     /*
         Lee un programa según su Nombre
      */
