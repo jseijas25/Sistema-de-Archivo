@@ -110,4 +110,8 @@ public class Expediente {
     public void setIdPhotocopyChecked(boolean idPhotocopyChecked) {
         this.idPhotocopyChecked = idPhotocopyChecked;
     }
+
+    public boolean isSolvente() {
+        return isBirthCertificateChecked() && isCvChecked() && isGradesChecked() && isIdPhotocopyChecked() && isNegativePhotocopyChecked() && isPicturesChecked();
+    }
 }

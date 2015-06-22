@@ -5,7 +5,6 @@ public class Estudiante {
     private String nombre;
     private String apellido;
     private int genero;
-    private boolean solvente;
 
     public Estudiante() {
     }
@@ -15,7 +14,6 @@ public class Estudiante {
         this.nombre = nombre;
         this.apellido = apellido;
         this.genero = genero;
-        this.solvente = solvente;
     }
 
     public int getCedula() {
@@ -48,13 +46,5 @@ public class Estudiante {
 
     public void setGenero(int genero) {
         this.genero = genero;
-    }
-
-    public boolean isSolvente() {
-        return solvente;
-    }
-
-    public void setSolvente(boolean solvente) {
-        this.solvente = solvente;
     }
 }

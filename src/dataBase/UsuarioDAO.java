@@ -17,9 +17,9 @@ public class UsuarioDAO {
         try {
             PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("select * from  usuario");
             ResultSet rs = ps.executeQuery();
-            Usuario usuario = new Usuario();
             while (rs.next()) {
-                usuario.setId(rs.getInt("id"));
+				Usuario usuario = new Usuario();
+				usuario.setId(rs.getInt("id"));
                 usuario.setNombre(rs.getString("nombre"));
                 usuario.setClave(rs.getString("clave"));
                 usuario.setNivel(AccessLevel.valueOf(rs.getString("nivel")));

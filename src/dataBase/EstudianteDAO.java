@@ -16,13 +16,12 @@ public class EstudianteDAO {
         try {
             PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("select * from  estudiante");
             ResultSet rs = ps.executeQuery();
-            Estudiante estudiante = new Estudiante();
             while (rs.next()) {
+                Estudiante estudiante = new Estudiante();
                 estudiante.setCedula(rs.getInt("cedula"));
                 estudiante.setNombre(rs.getString("nombre"));
                 estudiante.setApellido(rs.getString("apellido"));
                 estudiante.setGenero(rs.getInt("genero"));
-                estudiante.setSolvente(rs.getBoolean("solvente"));
 
                 estudiantes.add(estudiante);
             }
@@ -40,12 +39,11 @@ public class EstudianteDAO {
     public static boolean create (Estudiante estudiante){
         try {
             PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement
-                    ("insert into estudiante (cedula, nombre, apellido, genero, solvente) values (?,?,?,?,?)");
+                    ("insert into estudiante (cedula, nombre, apellido, genero) values (?,?,?,?)");
             ps.setInt(1, estudiante.getCedula());
             ps.setString(2, estudiante.getNombre());
             ps.setString(3, estudiante.getApellido());
             ps.setInt(4, estudiante.getGenero());
-            ps.setBoolean(5, estudiante.isSolvente());
 
             ps.execute();
             _Con.getInstance().closeConnectionDB();
@@ -69,7 +67,6 @@ public class EstudianteDAO {
                 estudiante.setNombre(rs.getString("nombre"));
                 estudiante.setApellido(rs.getString("apellido"));
                 estudiante.setGenero(rs.getInt("genero"));
-                estudiante.setSolvente(rs.getBoolean("solvente"));
 
                 _Con.getInstance().closeConnectionDB();
                 return true;
@@ -87,12 +84,11 @@ public class EstudianteDAO {
 
     public static boolean update (Estudiante estudiante) {
         try {
-            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("update estudiante set nombre=?, apellido=?, genero=?, solvente=? where cedula=?");
-            ps.setInt(5, estudiante.getCedula());
+            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("update estudiante set nombre=?, apellido=?, genero=? where cedula=?");
+            ps.setInt(4, estudiante.getCedula());
             ps.setString(1, estudiante.getNombre());
             ps.setString(2, estudiante.getApellido());
             ps.setInt(3, estudiante.getGenero());
-            ps.setBoolean(4, estudiante.isSolvente());
 
             ps.execute();
             return true;

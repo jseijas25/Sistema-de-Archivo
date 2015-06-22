@@ -1,9 +1,11 @@
 package vistas;
 
 import controladores.ControladorBuscarEstudiante;
+import funciones._Con;
 import modelos.Estudiante;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class VistaBuscarEstudiante extends BaseVista {
@@ -13,50 +15,59 @@ public class VistaBuscarEstudiante extends BaseVista {
     public VistaBuscarEstudiante() {
         super();
         JLabel lblCedula;
-        JPanel pnlPrincipal;
+        JPanel pnlPrincipal, pnlcedula, pnlbotones;
         ControladorBuscarEstudiante controlador;
         controlador = new ControladorBuscarEstudiante(this);
+        Icon icobuscar, icosalir;
+        icobuscar        = new ImageIcon(_Con.RUTA + "32x32/buscar.png");
+        icosalir         = new ImageIcon(_Con.RUTA + "32x32/salir.png");
 
-        pnlPrincipal = new JPanel(new GridLayout(2,2));
-
-        txtCedula = new JTextField();
+        txtCedula = new JTextField(10);
         lblCedula = new JLabel("CI:");
 
-        btnBuscar = new JButton("Buscar");
-        btnSalir = new JButton("Salir");
+        btnBuscar = new JButton("Buscar", icobuscar);
+        btnSalir = new JButton("Salir", icosalir);
 
-        lblCedula.setHorizontalAlignment(SwingConstants.CENTER);
+        pnlPrincipal = new JPanel(new BorderLayout());
+        pnlcedula =new JPanel(new FlowLayout());
+        pnlcedula.setBorder(new EmptyBorder(10,10,10,10));
+        pnlcedula.add(lblCedula);
+        pnlcedula.add(txtCedula);
 
-        pnlPrincipal.add(lblCedula);
-        pnlPrincipal.add(txtCedula);
-        pnlPrincipal.add(btnBuscar);
-        pnlPrincipal.add(btnSalir);
+        pnlbotones =new JPanel(new FlowLayout());
+        pnlbotones.setBorder(new EmptyBorder(10,10,10,10));
+        pnlbotones.add(btnBuscar);
+        pnlbotones.add(btnSalir);
+
+        pnlPrincipal.add(pnlcedula, BorderLayout.CENTER);
+        pnlPrincipal.add(pnlbotones, BorderLayout.SOUTH);
 
         btnSalir.addActionListener(controlador);
         btnBuscar.addActionListener(controlador);
 
         this.add(pnlPrincipal);
-        this.setSize(200,85);
         this.setResizable(false);
-        this.setLocationRelativeTo(null);
         this.setTitle("Buscar estudiante");
         this.setVisible(true);
+        this.setSize(280,150);
+        this.setLocationRelativeTo(null);
     }
 
-    public boolean getData(Estudiante estudiante){
-        if (txtCedula.getText().isEmpty()){
+    public boolean getData(Estudiante estudiante) {
+        System.out.println(txtCedula.getText().length());
+        if (txtCedula.getText().isEmpty()) {
             setError("El campo cedula no puede estar vacio");
-        }else {
-            try {
-                estudiante.setCedula(Integer.parseInt(txtCedula.getText()));
-            } catch (NumberFormatException e) {
-                setError("La cedula debe ser numerica");
-                return false;
-            }
-            if (estudiante.getCedula() <= 0) {
-                setError("La cedula debe ser un número mayor que 0");
-                return false;
-            }
+            return false;
+        }
+        try {
+            estudiante.setCedula(Integer.parseInt(txtCedula.getText()));
+        } catch (NumberFormatException e) {
+            setError("La cedula debe ser numerica");
+            return false;
+        }
+        if (estudiante.getCedula() <= 0) {
+            setError("La cedula debe ser un número mayor que 0");
+            return false;
         }
         return true;
     }

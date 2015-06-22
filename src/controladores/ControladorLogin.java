@@ -26,8 +26,7 @@ public class ControladorLogin extends BaseControlador {
 
 
     public void ingresar() {
-        vista.getData(usuario);
-        if(vista.getError().isEmpty()){
+        if(vista.getData(usuario)){
             if(UsuarioDAO.read(usuario)){
                 Usuario usuarioVista = new Usuario();
                 vista.getData(usuarioVista);
@@ -44,6 +43,7 @@ public class ControladorLogin extends BaseControlador {
             }
         }
         vista.showError();
+        vista.vaciar();
     }
 
     public void cancelar() {
@@ -53,12 +53,6 @@ public class ControladorLogin extends BaseControlador {
         System.exit(0);
     }
 
-    public void vaciar() {
-        vista.setTxtUsuario(null);
-        vista.setTxtClave(null);
-        vista.getTxtUsuario().requestFocus();
-    }
-
     public void actionPerformed(ActionEvent accion) {
         if (accion.getSource().equals(vista.getBtnAceptar())) {
             ingresar();
@@ -66,8 +60,6 @@ public class ControladorLogin extends BaseControlador {
         if (accion.getSource().equals(vista.getBtnCancelar())) {
             cancelar();
         }
-        if (accion.getSource().equals(vista.getBtnVaciar()))
-            vaciar();
     }
 
     @Override

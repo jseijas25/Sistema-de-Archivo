@@ -21,11 +21,14 @@ public class ControladorPrincipal implements ActionListener {
 		}
 		if ((event.getSource().equals(vista.getBtnUsuario())) ||
 				(event.getSource().equals(vista.getItmUsuario())))
-			new VistaUsuarios();
+			new VistaBuscarUsuario();
 		if(event.getSource().equals(vista.getItmReportes()))
 			new ReportePdfUsuarios();
 		if(event.getSource().equals(vista.getBtnExpediente()) ||
                 (event.getSource().equals(vista.getItmExpedientes())))
 			new VistaBuscarEstudiante();
-		}
-	}
+        if(event.getSource().equals(vista.getBtnPrograma()) ||
+                (event.getSource().equals(vista.getItmProgramas())))
+            new VistaBuscarPrograma();
+    }
+}

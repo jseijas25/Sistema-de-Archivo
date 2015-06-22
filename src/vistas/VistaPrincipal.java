@@ -1,8 +1,6 @@
 package vistas;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
+import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
@@ -16,55 +14,57 @@ import controladores.ControladorPrincipal;
 
 public class VistaPrincipal extends JFrame {
 
-	private JMenuItem itmUsuario, itmExpedientes, itmReportes, itmCerrar;
-	private JButton btnUsuario, btnExpediente, btnSalir;
+	private JMenuItem itmUsuario, itmExpedientes,itmProgramas, itmReportes, itmCerrar;
+	private JButton btnUsuario, btnPrograma, btnExpediente, btnSalir;
 
     public VistaPrincipal() {
-        JLabel lblAutor, logo, fondo;
-        JPanel pnlBotonera, pnlAuxiliar, pnlTitulo, pnlDesarrollo, pnlPrincipal;
-        Icon icoUsuarioP, imgReporteP, imgSalirP;
-        Icon imgUsuarioG, imgSalirG, imgExpedienteG, imgBanner, imgTipo;
+        JLabel lblAutor, lblLogo, lblFondo;
+        JPanel pnlBotonera, pnlTitulo, pnlAutor;
+        Icon icoUsuarioP, icoReporteP, icoSalirP;
+        Icon icoUsuarioG, icoSalirG, icoExpedienteG, icoPrograma;
         ControladorPrincipal controladorPrincipal;
         JMenuBar barMenu;
         JMenu menRegistro, menReportes, menOtros;
 
-        icoUsuarioP         = new ImageIcon(_Con.RUTA + "16x16/usuario.png");
-        imgReporteP         = new ImageIcon(_Con.RUTA + "16x16/pdf.png");
-        imgSalirP           = new ImageIcon(_Con.RUTA + "16x16/salir.png");
+        icoUsuarioP         = new ImageIcon(_Con.RUTA + "16x16/.png");
+        icoReporteP         = new ImageIcon(_Con.RUTA + "16x16/.png");
+        icoSalirP           = new ImageIcon(_Con.RUTA + "16x16/.png");
 
-        imgUsuarioG         = new ImageIcon(_Con.RUTA + "32x32/usuario.png");
-        imgSalirG           = new ImageIcon(_Con.RUTA + "32x32/salir.png");
-        imgExpedienteG      = new ImageIcon(_Con.RUTA + "32x32/expe.png");
-        imgBanner           = new ImageIcon(_Con.RUTA + "logo/Imagen1.png");
+        icoUsuarioG         = new ImageIcon(_Con.RUTA + "32x32/usuario.png");
+        icoSalirG           = new ImageIcon(_Con.RUTA + "32x32/salir.png");
+        icoExpedienteG      = new ImageIcon(_Con.RUTA + "32x32/expediente.png");
+        icoPrograma         = new ImageIcon(_Con.RUTA + "32x32/programa.png");
 
-        btnUsuario          = new JButton("USUARIOS", imgUsuarioG);
-        btnSalir            = new JButton("SALIR", imgSalirG);
-        btnExpediente       = new JButton("EXPEDIENTES", imgExpedienteG);
+        btnUsuario          = new JButton("USUARIOS", icoUsuarioG);
+        btnSalir            = new JButton("SALIR", icoSalirG);
+        btnExpediente       = new JButton("ESTUDIANTES", icoExpedienteG);
+        btnPrograma          = new JButton("PROGRAMAS", icoPrograma);
 
-        logo                = new JLabel();
-        logo.setIcon(new ImageIcon(_Con.RUTA + "logo/banner.png"));
+        lblLogo                = new JLabel();
+        lblLogo.setIcon(new ImageIcon(_Con.RUTA + "logo/banner.png"));
 
-        fondo               = new JLabel();
-        fondo.setIcon(new ImageIcon(_Con.RUTA + "logo/centro.png"));
+        lblFondo               = new JLabel();
+        lblFondo.setIcon(new ImageIcon(_Con.RUTA + "logo/centro.png"));
 
 
         barMenu             = new JMenuBar();
-
         menRegistro         = new JMenu("REGISTRO");
         menRegistro.setMnemonic('R');
         itmUsuario          = new JMenuItem("Usuarios", icoUsuarioP);
         itmUsuario.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_MASK));
-        itmExpedientes      = new JMenuItem("Expedientes");
+        itmExpedientes      = new JMenuItem("Estudiantes");
         itmExpedientes.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_MASK));
+        itmProgramas      = new JMenuItem("Programas");
+        itmProgramas.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_MASK));
 
         menReportes         = new JMenu("REPORTES");
         menReportes.setMnemonic('P');
-        itmReportes         = new JMenuItem("Usuarios", imgReporteP);
+        itmReportes         = new JMenuItem("Usuarios", icoReporteP);
         itmReportes.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
 
         menOtros            = new JMenu("OTROS");
         menOtros.setMnemonic('O');
-        itmCerrar           = new JMenuItem("Salir", imgSalirP);
+        itmCerrar           = new JMenuItem("Salir", icoSalirP);
         itmCerrar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK));
 
         menOtros.add(itmCerrar);
@@ -73,83 +73,54 @@ public class VistaPrincipal extends JFrame {
         barMenu.add(menReportes);
         barMenu.add(menOtros);
 
-
-        //DEFINIR ETIQUETAS Y CAMPOS
-
         lblAutor = new JLabel("Sistema desarrollado por: Jose Luis Seijas - 2015");
-
-
-        //PANELES
-
-        pnlPrincipal = new JPanel(new BorderLayout());
-        pnlPrincipal.setBorder(new LineBorder(Color.BLACK, 3, true));
 
         pnlBotonera = new JPanel();
         pnlBotonera.setLayout(new BoxLayout(pnlBotonera, BoxLayout.Y_AXIS));
         pnlBotonera.setBackground(Color.gray);
 
-        //panel superior
-
         pnlTitulo = new JPanel(new BorderLayout());
+        pnlTitulo.add(lblLogo,BorderLayout.CENTER);
+        pnlTitulo.add(barMenu, BorderLayout.NORTH);
 
-        pnlAuxiliar = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnlAuxiliar.add(logo);
-        pnlPrincipal.add(pnlAuxiliar);                                  //¿Añades el panel auxiliar a dos paneles distintos?
-        pnlTitulo.add(pnlAuxiliar, BorderLayout.WEST);
-
-
-        //Panel barra de menu
-        pnlAuxiliar = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        pnlAuxiliar.add(barMenu);
-        pnlTitulo.add(pnlAuxiliar, BorderLayout.SOUTH);
-
-        //panel inferior
-
-        pnlDesarrollo = new JPanel(new FlowLayout());
-
-        pnlAuxiliar = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnlPrincipal.setBorder(new LineBorder(Color.BLACK, 2, true));
-        pnlAuxiliar.add(lblAutor);
-        pnlDesarrollo.add(pnlAuxiliar, BorderLayout.WEST);
-
-        // -----------------niveles de seguridad-----------------------
+        pnlAutor = new JPanel(new FlowLayout());
+        pnlAutor.add(lblAutor);
 
         if (_Con.getInstance().getUsuario().getNivel().equals(AccessLevel.ADMIN)){
             pnlBotonera.add(btnUsuario);
             menRegistro.add(itmUsuario);
         }
         pnlBotonera.add(btnExpediente);
+        pnlBotonera.add(btnPrograma);
         pnlBotonera.add(btnSalir);
+        menRegistro.add(itmProgramas);
         menRegistro.add(itmExpedientes);
 
-        //-----------------------ENLACES CON CONTROLADOR<---------------------------
+
+        this.add(pnlTitulo, BorderLayout.NORTH);
+        this.add(lblFondo, BorderLayout.CENTER);
+        this.add(pnlAutor, BorderLayout.SOUTH);
+        this.add(pnlBotonera, BorderLayout.WEST);
 
         controladorPrincipal = new ControladorPrincipal(this);
         btnSalir.addActionListener(controladorPrincipal);
         btnExpediente.addActionListener(controladorPrincipal);
         btnUsuario.addActionListener(controladorPrincipal);
+        btnPrograma.addActionListener(controladorPrincipal);
         itmCerrar.addActionListener(controladorPrincipal);
         itmUsuario.addActionListener(controladorPrincipal);
         itmReportes.addActionListener(controladorPrincipal);
         itmExpedientes.addActionListener(controladorPrincipal);
 
-        this.setJMenuBar(barMenu);
-        this.add(fondo, BorderLayout.CENTER);
-        this.add(pnlTitulo, BorderLayout.NORTH);
-        this.add(pnlDesarrollo, BorderLayout.SOUTH);
-        this.add(pnlBotonera, BorderLayout.WEST);
         this.setUndecorated(true);
-        this.pack();
-
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setVisible(true);
-
-        fondo.setHorizontalAlignment(JLabel.CENTER);
-        fondo.setVerticalAlignment(JLabel.CENTER);
-        this.add(fondo);
+        lblFondo.setHorizontalAlignment(JLabel.CENTER);
+        lblFondo.setVerticalAlignment(JLabel.CENTER);
+        this.add(lblFondo);
         this.getContentPane().setBackground(Color.WHITE);
-        this.setTitle("Archivo General Control de Estudio - Area de Postgrado");
         this.setIconImage(new ImageIcon(_Con.RUTA + "logo/logo.png").getImage());
+
     }
 
     public JMenuItem getItmUsuario() {
@@ -158,6 +129,10 @@ public class VistaPrincipal extends JFrame {
 
     public JMenuItem getItmExpedientes() {
         return itmExpedientes;
+    }
+
+    public JMenuItem getItmProgramas() {
+        return itmProgramas;
     }
 
     public JMenuItem getItmReportes() {
@@ -174,6 +149,10 @@ public class VistaPrincipal extends JFrame {
 
     public JButton getBtnExpediente() {
         return btnExpediente;
+    }
+
+    public JButton getBtnPrograma() {
+        return btnPrograma;
     }
 
     public JButton getBtnSalir() {

@@ -1,34 +1,49 @@
 package vistas;
 
-import funciones.OperationType;
+import controladores.ControladorEstudiante;
 import funciones._Con;
+import modelos.Estudiante;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class VistaEstudiante extends BaseVista {
-    private JButton btnCrear, btnEditar, btnBorrar, btnSolvencia, btnSalir;
+    private JButton btnCrear, btnEditar, btnBorrar, btnSalir;
 
     private JTextField txtCedula, txtNombre, txtApellido;
     private JRadioButton rdbHombre, rdbMujer;
-    private JCheckBox chkSolvente;
     private JTabbedPane tbbExpediente;
-    private ArrayList<JPanel> panelsExpedientes;
+    private ArrayList<PestanaExpediente> pestanaExpedientes;
+    private boolean editable;
 
     public VistaEstudiante(){
         ButtonGroup grpGenero;
-        JLabel lblCedula, lblNombre, lblApellido, lblGenero, lblSolvente;
+        JLabel lblCedula, lblNombre, lblApellido, lblGenero;
         JPanel pnlDatosEstudiante, pnlLateral, pnlPrincipal, pnlAux;
+        Icon icoCrear,icoBorrar,icoSalir,icoEditar;
+
+        icoCrear         = new ImageIcon(_Con.RUTA + "32x32/crear.png");
+        icoBorrar=new ImageIcon(_Con.RUTA + "32x32/borrar.png");
+        icoSalir=new ImageIcon(_Con.RUTA + "32x32/salir.png");
+        icoEditar=new ImageIcon(_Con.RUTA + "32x32/editar.png");
+
+        ControladorEstudiante controlador;
+        controlador = new ControladorEstudiante(this);
+        pnlAux = new JPanel();
+        editable = true;
 
         lblCedula = new JLabel("Cedula: ");
         txtCedula = new JTextField();
+        txtCedula.setEnabled(false);
 
         lblNombre = new JLabel("Nombre: ");
         txtNombre = new JTextField();
+        txtNombre.addActionListener(controlador);
 
         lblApellido = new JLabel("Apellido: ");
         txtApellido = new JTextField();
+        txtApellido.addActionListener(controlador);
 
         lblGenero = new JLabel("Genero: ");
         rdbHombre = new JRadioButton("Hombre");
@@ -37,156 +52,133 @@ public class VistaEstudiante extends BaseVista {
         grpGenero.add(rdbHombre);
         grpGenero.add(rdbMujer);
 
-        lblSolvente = new JLabel("Solvente?");
-        chkSolvente = new JCheckBox();
-
         tbbExpediente = new JTabbedPane();
-        tbbExpediente.setSize(200,150);
-        panelsExpedientes = new ArrayList<>();
+        pestanaExpedientes = new ArrayList<>();
+        pestanaExpedientes.add(new PestanaExpediente());
+        for (int i = 0; i < pestanaExpedientes.size(); i++) {
+            tbbExpediente.addTab("Expediente: "+i, pestanaExpedientes.get(i));
+        }
+        pnlAux = new JPanel();
+        JButton crearExpediente = new JButton("Crear Expediente");
+        pnlAux.add(crearExpediente);
+        tbbExpediente.addTab("+", pnlAux);
 
-        pnlDatosEstudiante = new JPanel(new GridLayout(5,2));
+        pnlAux = new JPanel();
+        pnlDatosEstudiante = new JPanel(new GridLayout(4,2));
         pnlDatosEstudiante.add(lblCedula);      pnlDatosEstudiante.add(txtCedula);
         pnlDatosEstudiante.add(lblNombre);      pnlDatosEstudiante.add(txtNombre);
         pnlDatosEstudiante.add(lblApellido);    pnlDatosEstudiante.add(txtApellido);
-        pnlAux = new JPanel(new GridLayout(1,2,2,2));
-            pnlAux.add(rdbHombre);      pnlAux.add(rdbMujer);
+        pnlAux.setLayout(new GridLayout(1,2,2,2));
+        pnlAux.add(rdbHombre);      pnlAux.add(rdbMujer);
         pnlDatosEstudiante.add(lblGenero);      pnlDatosEstudiante.add(pnlAux);
-        pnlDatosEstudiante.add(lblSolvente);    pnlDatosEstudiante.add(chkSolvente);
 
         pnlLateral = new JPanel();
         switch (_Con.getInstance().getOperation()){
             case READ:
-                pnlLateral.setLayout(new GridLayout(1,4,2,2));
-                btnEditar = new JButton("Editar");
-                btnBorrar = new JButton("Borrar");
-                btnSolvencia = new JButton("Solvencia");
+                pnlLateral.setLayout(new GridLayout(3,1));
+                btnEditar = new JButton("Editar", icoEditar);
+                btnEditar.addActionListener(controlador);
+                btnBorrar = new JButton("Borrar", icoBorrar);
+                btnBorrar.addActionListener(controlador);
                 pnlLateral.add(btnEditar);
                 pnlLateral.add(btnBorrar);
-                pnlLateral.add(btnSolvencia);
+                setEditable();
                 break;
             case CREATE:
-                pnlLateral.setLayout(new GridLayout(1,2,2,2));
-                btnCrear = new JButton("Crear");
+                pnlLateral.setLayout(new GridLayout(2,1));
+                btnCrear = new JButton("Crear", icoCrear);
+                btnCrear.addActionListener(controlador);
                 pnlLateral.add(btnCrear);
                 break;
         }
 
-        btnSalir = new JButton("Salir");
+        btnSalir = new JButton("Salir", icoSalir);
+        btnSalir.addActionListener(controlador);
         pnlLateral.add(btnSalir);
 
         pnlPrincipal = new JPanel(new BorderLayout());
-        pnlPrincipal.add(pnlDatosEstudiante, BorderLayout.NORTH);
-        pnlPrincipal.add(pnlLateral, BorderLayout.SOUTH);
-        pnlPrincipal.add(tbbExpediente, BorderLayout.CENTER);
+        pnlPrincipal.add(pnlDatosEstudiante, BorderLayout.CENTER);
+        pnlPrincipal.add(pnlLateral, BorderLayout.EAST);
+        pnlPrincipal.add(tbbExpediente, BorderLayout.SOUTH);
 
+        this.addWindowListener(controlador);
         this.add(pnlPrincipal);
         this.setVisible(true);
         this.pack();
+        this.setTitle("Estudiante");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        this.setAlwaysOnTop(true);
+    }
+
+    public boolean getData(Estudiante estudiante){
+        if(txtNombre.getText().isEmpty()){
+            setError("El campo \"Nombre\" no puede estar vacio");
+            return false;
+        }
+        estudiante.setNombre(txtNombre.getText());
+        if(txtApellido.getText().isEmpty()){
+            setError("El campo \"Apellido\" no puede estar vacio");
+            return false;
+        }
+        estudiante.setApellido(txtApellido.getText());
+        if(rdbHombre.isSelected()){
+            estudiante.setGenero(0);
+        }else if(rdbMujer.isSelected()){
+            estudiante.setGenero(1);
+        }else{
+            setError("Debe seleccionar el genero");
+            return false;
+        }
+        return true;
+    }
+
+    public void setData(Estudiante estudiante){
+        txtCedula.setText(String.valueOf(estudiante.getCedula()));
+        txtNombre.setText(estudiante.getNombre());
+        txtApellido.setText(estudiante.getApellido());
+        if(estudiante.getGenero() == 0){
+            rdbHombre.setSelected(true);
+        }else {
+            rdbMujer.setSelected(true);
+        }
+    }
+
+    public void setEditable() {
+        if(editable){
+            editable = false;
+            btnEditar.setText("Editar");
+        }else{
+            int op = JOptionPane.showConfirmDialog(this, "¿Está seguro de habilitar edición?", "Confirmar", JOptionPane.YES_NO_OPTION);
+            if(op == JOptionPane.YES_OPTION){
+                editable = true;
+                btnEditar.setText("Guardar");
+            }
+        }
+        txtNombre.setEnabled(editable);
+        txtApellido.setEnabled(editable);
+        rdbHombre.setEnabled(editable);
+        rdbMujer.setEnabled(editable);
+        btnBorrar.setEnabled(!editable);
     }
 
     public JButton getBtnCrear() {
         return btnCrear;
     }
 
-    public void setBtnCrear(JButton btnCrear) {
-        this.btnCrear = btnCrear;
-    }
-
     public JButton getBtnEditar() {
         return btnEditar;
-    }
-
-    public void setBtnEditar(JButton btnEditar) {
-        this.btnEditar = btnEditar;
     }
 
     public JButton getBtnBorrar() {
         return btnBorrar;
     }
 
-    public void setBtnBorrar(JButton btnBorrar) {
-        this.btnBorrar = btnBorrar;
-    }
-
-    public JButton getBtnSolvencia() {
-        return btnSolvencia;
-    }
-
-    public void setBtnSolvencia(JButton btnSolvencia) {
-        this.btnSolvencia = btnSolvencia;
-    }
-
     public JButton getBtnSalir() {
         return btnSalir;
     }
 
-    public void setBtnSalir(JButton btnSalir) {
-        this.btnSalir = btnSalir;
-    }
-
-    public JTextField getTxtCedula() {
-        return txtCedula;
-    }
-
-    public void setTxtCedula(JTextField txtCedula) {
-        this.txtCedula = txtCedula;
-    }
-
-    public JTextField getTxtNombre() {
-        return txtNombre;
-    }
-
-    public void setTxtNombre(JTextField txtNombre) {
-        this.txtNombre = txtNombre;
-    }
-
-    public JTextField getTxtApellido() {
-        return txtApellido;
-    }
-
-    public void setTxtApellido(JTextField txtApellido) {
-        this.txtApellido = txtApellido;
-    }
-
-    public JRadioButton getRdbHombre() {
-        return rdbHombre;
-    }
-
-    public void setRdbHombre(JRadioButton rdbHombre) {
-        this.rdbHombre = rdbHombre;
-    }
-
-    public JRadioButton getRdbMujer() {
-        return rdbMujer;
-    }
-
-    public void setRdbMujer(JRadioButton rdbMujer) {
-        this.rdbMujer = rdbMujer;
-    }
-
-    public JCheckBox getChkSolvente() {
-        return chkSolvente;
-    }
-
-    public void setChkSolvente(JCheckBox chkSolvente) {
-        this.chkSolvente = chkSolvente;
-    }
-
-    public JTabbedPane getTbbExpediente() {
-        return tbbExpediente;
-    }
-
-    public void setTbbExpediente(JTabbedPane tbbExpediente) {
-        this.tbbExpediente = tbbExpediente;
-    }
-
-    public ArrayList<JPanel> getPanelsExpedientes() {
-        return panelsExpedientes;
-    }
-
-    public void setPanelsExpedientes(ArrayList<JPanel> panelsExpedientes) {
-        this.panelsExpedientes = panelsExpedientes;
+    public boolean isEditable() {
+        return editable;
     }
 }

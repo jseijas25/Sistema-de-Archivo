@@ -14,10 +14,10 @@ public class ProgramaDAO {
 
     public static boolean findAll(ArrayList<Programa> programas) {
         try {
-            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("select * from  programa");
+            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("SELECT * FROM programa ORDER BY name");
             ResultSet rs = ps.executeQuery();
-            Programa programa = new Programa();
             while (rs.next()) {
+                Programa programa = new Programa();
                 programa.setId(rs.getInt("id"));
                 programa.setName(rs.getString("name"));
                 programa.setActive(rs.getBoolean("active"));
@@ -36,11 +36,10 @@ public class ProgramaDAO {
     public static boolean create (Programa programa){
         try {
             PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement
-                    ("insert into programa (id, name, active, recordCount) values (?,?,?,?)");
-            ps.setInt(1, programa.getId());
-            ps.setString(2, programa.getName());
-            ps.setBoolean(3, programa.isActive());
-            ps.setInt(4, programa.getRecordCount());
+                    ("INSERT INTO programa (name, active, recordCount) VALUES (?,?,?)");
+            ps.setString(1, programa.getName());
+            ps.setBoolean(2, programa.isActive());
+            ps.setInt(3, programa.getRecordCount());
 
             ps.execute();
             _Con.getInstance().closeConnectionDB();
@@ -57,7 +56,7 @@ public class ProgramaDAO {
 
     public static boolean read (Programa programa) {
         try {
-            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("select * from  programa where name=?");
+            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("SELECT * FROM  programa WHERE name=?");
             ps.setString(1, programa.getName());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -77,7 +76,7 @@ public class ProgramaDAO {
 
     public static boolean update (Programa programa) {
         try {
-            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("update programa set name=?,active=?,recordCount=? where id=?");
+            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("UPDATE programa SET name=?,active=?,recordCount=? WHERE id=?");
             ps.setInt(4, programa.getId());
             ps.setString(1, programa.getName());
             ps.setBoolean(4, programa.isActive());
