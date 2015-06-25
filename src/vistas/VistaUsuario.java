@@ -20,10 +20,10 @@ public class VistaUsuario extends BaseVista {
         JPanel pnlDatosUsuario, pnlLateral, pnlPrincipal;
         Icon icoCrear,icoBorrar,icoSalir,icoEditar;
 
-        icoCrear         = new ImageIcon(_Con.RUTA + "32x32/crear.png");
-        icoBorrar=new ImageIcon(_Con.RUTA + "32x32/borrar.png");
-        icoSalir=new ImageIcon(_Con.RUTA + "32x32/salir.png");
-        icoEditar=new ImageIcon(_Con.RUTA + "32x32/editar.png");
+        icoCrear         = new ImageIcon(_Con.RUTA_IMAGENES + "32x32/crear.png");
+        icoBorrar=new ImageIcon(_Con.RUTA_IMAGENES + "32x32/borrar.png");
+        icoSalir=new ImageIcon(_Con.RUTA_IMAGENES + "32x32/salir.png");
+        icoEditar=new ImageIcon(_Con.RUTA_IMAGENES + "32x32/editar.png");
 
         ControladorUsuario controlador;
         controlador = new ControladorUsuario(this);

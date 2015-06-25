@@ -1,9 +1,7 @@
 package vistas;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import controladores.ControladorBuscarUsuario;
 import funciones._Con;
-import modelos.Estudiante;
 import modelos.Usuario;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -20,8 +18,8 @@ public class VistaBuscarUsuario extends BaseVista {
         ControladorBuscarUsuario controlador;
         controlador = new ControladorBuscarUsuario(this);
         Icon icobuscar, icosalir;
-        icobuscar         = new ImageIcon(_Con.RUTA + "32x32/buscar.png");
-        icosalir         = new ImageIcon(_Con.RUTA + "32x32/salir.png");
+        icobuscar         = new ImageIcon(_Con.RUTA_IMAGENES + "32x32/buscar.png");
+        icosalir         = new ImageIcon(_Con.RUTA_IMAGENES + "32x32/salir.png");
 
         txtNombreUsuario = new JTextField(10);
         lblNombreUsuario = new JLabel("Nombre de Usuario:");

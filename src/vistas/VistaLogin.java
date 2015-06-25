@@ -25,8 +25,8 @@ public class VistaLogin extends BaseVista {
 		JLabel lblUsuario,lblClave;
 		JPanel pnlPrincipal,pnlClave,pnlBotonera;
 
-        icoAceptar=new ImageIcon(_Con.RUTA +"32x32/aceptar.png");
-		icoCancelar=new ImageIcon(_Con.RUTA +"32x32/cancelar.png");
+        icoAceptar=new ImageIcon(_Con.RUTA_IMAGENES +"32x32/aceptar.png");
+		icoCancelar=new ImageIcon(_Con.RUTA_IMAGENES +"32x32/cancelar.png");
 
 		lblUsuario= new JLabel("  Usuario:");
 		lblClave= new JLabel("  Clave:");
@@ -56,12 +56,10 @@ public class VistaLogin extends BaseVista {
 		this.add(pnlPrincipal);
 
         btnAceptar.addActionListener(controlador);
-		btnAceptar.addActionListener(controlador);
 		btnCancelar.addActionListener(controlador);
 		txtUsuario.addKeyListener(controlador);
 		txtClave.addKeyListener(controlador);
 
-		this.setIconImage(new ImageIcon(_Con.RUTA + "logo/logo.png").getImage());
 		this.setAlwaysOnTop(true);
         this.pack();
         this.setTitle("Ingresar");

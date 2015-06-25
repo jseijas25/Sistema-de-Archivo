@@ -9,7 +9,7 @@ public class Estudiante {
     public Estudiante() {
     }
 
-    public Estudiante(int cedula, String nombre, String apellido, int genero, boolean solvente) {
+    public Estudiante(int cedula, String nombre, String apellido, int genero) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;

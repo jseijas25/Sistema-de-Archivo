@@ -62,6 +62,7 @@ public class ProgramaDAO {
                 _Con.getInstance().closeConnectionDB();
                 return true;
             }else{
+                System.out.println("No se encontró un programa con esa ID");
                 _Con.getInstance().closeConnectionDB();
             }
         } catch (SQLException | NullPointerException e){
@@ -99,7 +100,7 @@ public class ProgramaDAO {
             PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("UPDATE programa SET name=?,active=?,recordCount=? WHERE id=?");
             ps.setInt(4, programa.getId());
             ps.setString(1, programa.getName());
-            ps.setBoolean(4, programa.isActive());
+            ps.setBoolean(2, programa.isActive());
             ps.setInt(3, programa.getRecordCount());
             ps.execute();
             return true;

@@ -19,8 +19,8 @@ public class VistaBuscarEstudiante extends BaseVista {
         ControladorBuscarEstudiante controlador;
         controlador = new ControladorBuscarEstudiante(this);
         Icon icobuscar, icosalir;
-        icobuscar        = new ImageIcon(_Con.RUTA + "32x32/buscar.png");
-        icosalir         = new ImageIcon(_Con.RUTA + "32x32/salir.png");
+        icobuscar        = new ImageIcon(_Con.RUTA_IMAGENES + "32x32/buscar.png");
+        icosalir         = new ImageIcon(_Con.RUTA_IMAGENES + "32x32/salir.png");
 
         txtCedula = new JTextField(10);
         lblCedula = new JLabel("CI:");

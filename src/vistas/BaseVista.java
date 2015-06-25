@@ -1,5 +1,7 @@
 package vistas;
 
+import funciones._Con;
+
 import javax.swing.*;
 
 public abstract class BaseVista extends JFrame {
@@ -10,6 +12,7 @@ public abstract class BaseVista extends JFrame {
     public BaseVista() {
         this.error = "";
         this.message = "";
+        this.setIconImage(new ImageIcon(_Con.RUTA_IMAGENES + "logo/logo.png").getImage());
     }
 
     public String getError() {

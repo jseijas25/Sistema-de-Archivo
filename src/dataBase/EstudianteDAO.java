@@ -34,7 +34,7 @@ public class EstudianteDAO {
     }
 
     /*
-        Crea un expediente según un objeto Expediente.
+        Crea un expediente según un objeto Estudiante.
      */
     public static boolean create (Estudiante estudiante){
         try {
@@ -48,14 +48,14 @@ public class EstudianteDAO {
             ps.execute();
             _Con.getInstance().closeConnectionDB();
             return true;
-        } catch (SQLException | NullPointerException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
 
     /*
-        Lee un expediente, según el id del objeto Expediente que se pasa por parametro y lo termina de rellenar.
+        Lee un expediente, según el id del objeto Estudiante que se pasa por parametro y lo termina de rellenar.
      */
 
     public static boolean read (Estudiante estudiante) {
@@ -76,8 +76,6 @@ public class EstudianteDAO {
             }
         } catch (SQLException e){
             e.printStackTrace();
-        } catch (NullPointerException e) {
-            System.out.println("Error al conectarse a la base de datos");
         }
         return false;
     }

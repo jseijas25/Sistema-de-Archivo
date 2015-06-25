@@ -6,16 +6,19 @@ import funciones.OperationType;
 import funciones._Con;
 import modelos.Estudiante;
 import modelos.Expediente;
+import reportes.ReportePdfSolvencia;
 import vistas.PestanaExpediente;
 import vistas.VistaBuscarEstudiante;
 import vistas.VistaEstudiante;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-public class ControladorEstudiante extends BaseControlador {
+public class ControladorEstudiante extends BaseControlador implements ChangeListener {
 
     private Estudiante estudiante;
     private Expediente expediente;
@@ -23,14 +26,14 @@ public class ControladorEstudiante extends BaseControlador {
 
     public ControladorEstudiante(VistaEstudiante vista) {
         this.vista = vista;
+        estudiante = new Estudiante();
+        expediente = new Expediente();
     }
 
     public void crearPestanaExpedienteNueva(){
         _Con.getInstance().setOperation(OperationType.CREATE);
         vista.getPestanaExpedientes().add(new PestanaExpediente());
-        int index = vista.getTbbExpediente().getTabCount()-1;
         vista.recargarExpedientes();
-        vista.getTbbExpediente().setSelectedIndex(index);
     }
 
     private void salir() {
@@ -69,7 +72,7 @@ public class ControladorEstudiante extends BaseControlador {
                 if(EstudianteDAO.update(estudiante)){
                     vista.setMessage("Exito al actualizar al estudiante");
                 }else{
-                    vista.setError("Estutiante no actualizado");
+                    vista.setError("Estudiante no actualizado");
                 }
             }
         }
@@ -91,6 +94,7 @@ public class ControladorEstudiante extends BaseControlador {
 
     private void crearExpediente(PestanaExpediente pestanaExpediente){
         if(pestanaExpediente.getData(expediente, vista)){
+            expediente.setId_Estudiante(estudiante.getCedula());
             if(ExpedienteDAO.create(expediente)){
                 vista.setMessage("Expediente creado con exito!");
                 _Con.getInstance().setOperation(OperationType.READ);
@@ -103,15 +107,44 @@ public class ControladorEstudiante extends BaseControlador {
     }
 
     private void editarExpediente(PestanaExpediente pestanaExpediente) {
-
+        if(pestanaExpediente.isEditable()){
+            if(pestanaExpediente.getData(expediente, vista)){
+                if(ExpedienteDAO.update(expediente)){
+                    vista.setMessage("Exito al actualizar el expediente");
+                }else{
+                    vista.setError("Expediente no actualizado");
+                }
+            }
+        }
+        pestanaExpediente.setEditable();
     }
 
     private void borrarExpediente(PestanaExpediente pestanaExpediente) {
-
+        int op = JOptionPane.showConfirmDialog(vista, "¿Está seguro que desea eliminar el expediente?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        if(op == JOptionPane.YES_OPTION){
+            pestanaExpediente.getData(expediente, vista);
+            if(ExpedienteDAO.delete(expediente.getId())){
+                vista.setMessage("Expediente eliminado con exito");
+                _Con.getInstance().setOperation(OperationType.READ);
+                vista.dispose();
+                new VistaEstudiante();
+            }else{
+                vista.setError("Expediente no eliminado");
+            }
+        }
     }
 
     private void solvencia(PestanaExpediente pestanaExpediente) {
-
+        vista.getData(estudiante);
+        pestanaExpediente.getData(expediente, vista);
+        if(expediente.isSolvente()){
+            vista.dispose();
+            _Con.getInstance().setExpediente(expediente);
+            _Con.getInstance().setEstudiante(estudiante);
+            new ReportePdfSolvencia();
+        }else{
+            vista.setError("No está solvente");
+        }
     }
 
     @Override
@@ -132,14 +165,9 @@ public class ControladorEstudiante extends BaseControlador {
         if(e.getSource().equals(vista.getBtnCrearExpediente())){
             crearPestanaExpedienteNueva();
         }
-        /*
-            Ya verifique y entra en el ciclo. Pero no sé porque, no comprueba ningun boton o no sé que estoy haciendo mal.
-            Bueno, ya me fui. Sólo falta eso. Basicamente lo único que nunca tuviste xD. Jajajaja
-            relol.
-         */
+
         for(PestanaExpediente pestanaExpediente : vista.getPestanaExpedientes()){
             if(e.getSource().equals(pestanaExpediente.getBtnCrear())){
-                System.out.println("Hola crear!");
                 crearExpediente(pestanaExpediente);
             }
             if(e.getSource().equals(pestanaExpediente.getBtnEditar())){
@@ -150,6 +178,9 @@ public class ControladorEstudiante extends BaseControlador {
             }
             if(e.getSource().equals(pestanaExpediente.getBtnSolvencia())){
                 solvencia(pestanaExpediente);
+            }
+            if(e.getSource().equals(pestanaExpediente.getChkAuto())){
+                pestanaExpediente.setAuto();
             }
         }
         vista.showError();
@@ -168,6 +199,12 @@ public class ControladorEstudiante extends BaseControlador {
             pe.setControlador(this);
             vista.getPestanaExpedientes().add(pe);
         }
+        vista.recargarExpedientes();
         vista.setData(estudiante);
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+
     }
 }

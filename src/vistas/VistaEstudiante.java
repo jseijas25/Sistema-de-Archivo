@@ -1,8 +1,6 @@
 package vistas;
 
 import controladores.ControladorEstudiante;
-import dataBase.ExpedienteDAO;
-import funciones.OperationType;
 import funciones._Con;
 import modelos.Estudiante;
 
@@ -19,6 +17,7 @@ public class VistaEstudiante extends BaseVista {
     private JPanel pnlNuevoExpediente;
     private ArrayList<PestanaExpediente> pestanaExpedientes;
     private boolean editable;
+    private ControladorEstudiante controlador;
 
     public VistaEstudiante(){
         ButtonGroup grpGenero;
@@ -26,12 +25,11 @@ public class VistaEstudiante extends BaseVista {
         JPanel pnlDatosEstudiante, pnlLateral, pnlPrincipal, pnlAux;
         Icon icoCrear,icoBorrar,icoSalir,icoEditar;
 
-        icoCrear         = new ImageIcon(_Con.RUTA + "32x32/crear.png");
-        icoBorrar=new ImageIcon(_Con.RUTA + "32x32/borrar.png");
-        icoSalir=new ImageIcon(_Con.RUTA + "32x32/salir.png");
-        icoEditar=new ImageIcon(_Con.RUTA + "32x32/editar.png");
+        icoCrear         = new ImageIcon(_Con.RUTA_IMAGENES + "32x32/crear.png");
+        icoBorrar=new ImageIcon(_Con.RUTA_IMAGENES + "32x32/borrar.png");
+        icoSalir=new ImageIcon(_Con.RUTA_IMAGENES + "32x32/salir.png");
+        icoEditar=new ImageIcon(_Con.RUTA_IMAGENES + "32x32/editar.png");
 
-        ControladorEstudiante controlador;
         controlador = new ControladorEstudiante(this);
         editable = true;
 
@@ -140,15 +138,17 @@ public class VistaEstudiante extends BaseVista {
         }else {
             rdbMujer.setSelected(true);
         }
-        recargarExpedientes();
     }
 
     public void recargarExpedientes() {
         tbbExpediente.removeAll();
         for (int i = 0; i < pestanaExpedientes.size(); i++) {
+            pestanaExpedientes.get(i).setControlador(controlador);
             tbbExpediente.addTab("Expediente: "+i, pestanaExpedientes.get(i));
         }
+        int index = tbbExpediente.getTabCount()-1;
         tbbExpediente.addTab("+", pnlNuevoExpediente);
+        tbbExpediente.setSelectedIndex(index);
         this.pack();
     }
 

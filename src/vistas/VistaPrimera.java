@@ -13,5 +13,6 @@ public class VistaPrimera extends BaseVista {
         this.setSize(200,100);
         this.setLocationRelativeTo(null);
         this.setTitle("Espere");
+        this.setResizable(false);
     }
 }

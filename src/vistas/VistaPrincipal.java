@@ -4,11 +4,9 @@ import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 
 import funciones.AccessLevel;
 import funciones._Con;
-import modelos.*;
 
 import controladores.ControladorPrincipal;
 
@@ -26,14 +24,14 @@ public class VistaPrincipal extends JFrame {
         JMenuBar barMenu;
         JMenu menRegistro, menReportes, menOtros;
 
-        icoUsuarioP         = new ImageIcon(_Con.RUTA + "16x16/.png");
-        icoReporteP         = new ImageIcon(_Con.RUTA + "16x16/.png");
-        icoSalirP           = new ImageIcon(_Con.RUTA + "16x16/.png");
+        icoUsuarioP         = new ImageIcon(_Con.RUTA_IMAGENES + "16x16/.png");
+        icoReporteP         = new ImageIcon(_Con.RUTA_IMAGENES + "16x16/.png");
+        icoSalirP           = new ImageIcon(_Con.RUTA_IMAGENES + "16x16/.png");
 
-        icoUsuarioG         = new ImageIcon(_Con.RUTA + "32x32/usuario.png");
-        icoSalirG           = new ImageIcon(_Con.RUTA + "32x32/salir.png");
-        icoExpedienteG      = new ImageIcon(_Con.RUTA + "32x32/expediente.png");
-        icoPrograma         = new ImageIcon(_Con.RUTA + "32x32/programa.png");
+        icoUsuarioG         = new ImageIcon(_Con.RUTA_IMAGENES + "32x32/usuario.png");
+        icoSalirG           = new ImageIcon(_Con.RUTA_IMAGENES + "32x32/salir.png");
+        icoExpedienteG      = new ImageIcon(_Con.RUTA_IMAGENES + "32x32/expediente.png");
+        icoPrograma         = new ImageIcon(_Con.RUTA_IMAGENES + "32x32/programa.png");
 
         btnUsuario          = new JButton("USUARIOS", icoUsuarioG);
         btnSalir            = new JButton("SALIR", icoSalirG);
@@ -41,11 +39,10 @@ public class VistaPrincipal extends JFrame {
         btnPrograma          = new JButton("PROGRAMAS", icoPrograma);
 
         lblLogo                = new JLabel();
-        lblLogo.setIcon(new ImageIcon(_Con.RUTA + "logo/banner.png"));
+        lblLogo.setIcon(new ImageIcon(_Con.RUTA_IMAGENES + "logo/banner.png"));
 
         lblFondo               = new JLabel();
-        lblFondo.setIcon(new ImageIcon(_Con.RUTA + "logo/centro.png"));
-
+        lblFondo.setIcon(new ImageIcon(_Con.RUTA_IMAGENES + "logo/centro.png"));
 
         barMenu             = new JMenuBar();
         menRegistro         = new JMenu("REGISTRO");
@@ -107,6 +104,7 @@ public class VistaPrincipal extends JFrame {
         itmUsuario.addActionListener(controladorPrincipal);
         itmReportes.addActionListener(controladorPrincipal);
         itmExpedientes.addActionListener(controladorPrincipal);
+        itmProgramas.addActionListener(controladorPrincipal);
 
         this.add(pnlTitulo, BorderLayout.NORTH);
         this.add(lblFondo, BorderLayout.CENTER);
@@ -119,7 +117,6 @@ public class VistaPrincipal extends JFrame {
         lblFondo.setVerticalAlignment(JLabel.CENTER);
         this.add(lblFondo);
         this.getContentPane().setBackground(Color.WHITE);
-        this.setIconImage(new ImageIcon(_Con.RUTA + "logo/logo.png").getImage());
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 

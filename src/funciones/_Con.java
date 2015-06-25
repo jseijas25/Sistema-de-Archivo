@@ -12,7 +12,8 @@ import java.util.ArrayList;
 
 public class _Con {
 
-    public static String RUTA = "../Sistema/imagenesSistema/";
+    public static final String RUTA_IMAGENES = "."+System.getProperty("file.separator")+"imagenesSistema"+System.getProperty("file.separator");
+    public static final String RUTA_BASE_DATOS = "";
 
     private static _Con instance = null;
 

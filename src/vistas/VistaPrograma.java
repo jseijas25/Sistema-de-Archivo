@@ -18,10 +18,10 @@ public class VistaPrograma extends BaseVista {
         JPanel pnlDatosProg, pnlLateral, pnlPrincipal;
         Icon icoCrear,icoBorrar,icoSalir,icoEditar;
 
-        icoCrear         = new ImageIcon(_Con.RUTA + "32x32/crear.png");
-        icoBorrar=new ImageIcon(_Con.RUTA + "32x32/borrar.png");
-        icoSalir=new ImageIcon(_Con.RUTA + "32x32/salir.png");
-        icoEditar=new ImageIcon(_Con.RUTA + "32x32/editar.png");
+        icoCrear         = new ImageIcon(_Con.RUTA_IMAGENES + "32x32/crear.png");
+        icoBorrar=new ImageIcon(_Con.RUTA_IMAGENES + "32x32/borrar.png");
+        icoSalir=new ImageIcon(_Con.RUTA_IMAGENES + "32x32/salir.png");
+        icoEditar=new ImageIcon(_Con.RUTA_IMAGENES + "32x32/editar.png");
 
         ControladorPrograma controlador;
         controlador = new ControladorPrograma(this);
@@ -90,7 +90,7 @@ public class VistaPrograma extends BaseVista {
     }
 
     public void setData(Programa programa){
-        txtNombreProg.setText(String.valueOf(programa.getName()));
+        txtNombreProg.setText(String.valueOf(programa.getName().toUpperCase()));
         txtRecordCount.setText(String.valueOf(programa.getRecordCount()));
         chkActive.setSelected(programa.isActive());
 

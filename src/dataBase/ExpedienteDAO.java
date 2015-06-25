@@ -113,29 +113,18 @@ public class ExpedienteDAO {
         Crea un expediente según un objeto Expediente.
      */
     public static boolean create (Expediente expediente){
-        ArrayList<Expediente> expedientes = new ArrayList<>();
-        findAll(expedientes);
-        int number = 0;
-        for(Expediente e : expedientes){
-            if (e.getNumber() != number) {
-                break;
-            } else {
-                number++;
-            }
-        }
-        try {
+                try {
             PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement
-                    ("INSERT INTO expediente (id, id_estudiante, id_programa, number, pictures, cv, negativePhotocopy, grades,birthCertificate, idPhotocopy) VALUES (?,?,?,?,?,?,?,?,?,?)");
-            ps.setInt(1, expediente.getId());
-            ps.setInt(2, expediente.getId_Estudiante());
-            ps.setInt(3, expediente.getId_Programa());
-            ps.setInt(4, number);
-            ps.setBoolean(5, expediente.isPicturesChecked());
-            ps.setBoolean(6, expediente.isCvChecked());
-            ps.setBoolean(7, expediente.isNegativePhotocopyChecked());
-            ps.setBoolean(8, expediente.isGradesChecked());
-            ps.setBoolean(9, expediente.isBirthCertificateChecked());
-            ps.setBoolean(10, expediente.isIdPhotocopyChecked());
+                    ("INSERT INTO expediente (id_estudiante, id_programa, number, pictures, cv, negativePhotocopy, grades,birthCertificate, idPhotocopy) VALUES (?,?,?,?,?,?,?,?,?)");
+            ps.setInt(1, expediente.getId_Estudiante());
+            ps.setInt(2, expediente.getId_Programa());
+            ps.setInt(3, expediente.getNumber());
+            ps.setBoolean(4, expediente.isPicturesChecked());
+            ps.setBoolean(5, expediente.isCvChecked());
+            ps.setBoolean(6, expediente.isNegativePhotocopyChecked());
+            ps.setBoolean(7, expediente.isGradesChecked());
+            ps.setBoolean(8, expediente.isBirthCertificateChecked());
+            ps.setBoolean(9, expediente.isIdPhotocopyChecked());
 
             ps.execute();
             _Con.getInstance().closeConnectionDB();
@@ -173,24 +162,21 @@ public class ExpedienteDAO {
             }
         } catch (SQLException e){
             e.printStackTrace();
-            System.out.println("Error al conectarse a la base de datos");
         }
         return false;
     }
 
     public static boolean update (Expediente expediente) {
         try {
-            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("update expediente set id_estudiante=?, id_programa=?, number=?, pictures=?, cv=?, negativePhotocopy=?, grades=?, birthCertificate=?, idPhotocopy=? where id=?");
-            ps.setInt(10, expediente.getId());
-            ps.setInt(1, expediente.getId_Estudiante());
-            ps.setInt(2, expediente.getId_Programa());
-            ps.setInt(3, expediente.getNumber());
-            ps.setBoolean(4, expediente.isPicturesChecked());
-            ps.setBoolean(5, expediente.isCvChecked());
-            ps.setBoolean(6, expediente.isNegativePhotocopyChecked());
-            ps.setBoolean(7, expediente.isGradesChecked());
-            ps.setBoolean(8, expediente.isBirthCertificateChecked());
-            ps.setBoolean(9, expediente.isIdPhotocopyChecked());
+            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("update expediente set number=?, pictures=?, cv=?, negativePhotocopy=?, grades=?, birthCertificate=?, idPhotocopy=? where id=?");
+            ps.setInt(8, expediente.getId());
+            ps.setInt(1, expediente.getNumber());
+            ps.setBoolean(2, expediente.isPicturesChecked());
+            ps.setBoolean(3, expediente.isCvChecked());
+            ps.setBoolean(4, expediente.isNegativePhotocopyChecked());
+            ps.setBoolean(5, expediente.isGradesChecked());
+            ps.setBoolean(6, expediente.isBirthCertificateChecked());
+            ps.setBoolean(7, expediente.isIdPhotocopyChecked());
             ps.execute();
             return true;
         } catch (SQLException e) {

@@ -19,8 +19,8 @@ public class VistaBuscarPrograma extends BaseVista {
         ControladorBuscarPrograma controlador;
         controlador = new ControladorBuscarPrograma(this);
         Icon icobuscar, icosalir;
-        icobuscar         = new ImageIcon(_Con.RUTA + "32x32/buscar.png");
-        icosalir         = new ImageIcon(_Con.RUTA + "32x32/salir.png");
+        icobuscar         = new ImageIcon(_Con.RUTA_IMAGENES + "32x32/buscar.png");
+        icosalir         = new ImageIcon(_Con.RUTA_IMAGENES + "32x32/salir.png");
 
         txtNombreProg = new JTextField(20);
         lblNombreProg = new JLabel("Programa:");

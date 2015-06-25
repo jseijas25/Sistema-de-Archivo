@@ -30,7 +30,7 @@ public class ControladorLogin extends BaseControlador {
             if(UsuarioDAO.read(usuario)){
                 Usuario usuarioVista = new Usuario();
                 vista.getData(usuarioVista);
-                if(usuarioVista.getClave().equals(usuario.getClave())) {
+                if(usuarioVista.getClave().equals(usuario.getClave())&&usuario.isActive()) {
                     vista.dispose();
                     JOptionPane.showMessageDialog(null, "Bienvenido al sistema: " + usuario.getNombre());
                     _Con.getInstance().setUsuario(usuario);
@@ -38,7 +38,7 @@ public class ControladorLogin extends BaseControlador {
                 }else{
                     vista.setError("Contraseña incorrecta");
                 }
-            }else {
+            } else {
                 vista.setError("Usuario no encontrado");
             }
         }
