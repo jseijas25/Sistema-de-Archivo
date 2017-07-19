@@ -59,7 +59,9 @@ public class ControladorBuscarUsuario extends BaseControlador {
     @Override
     public void keyReleased(KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.VK_ENTER) {
-            //TODO
+            if (event.getSource().equals(vista.getTxtNombreUsuario())) {
+                buscarUsuario();
+            }
         }
     }
 }

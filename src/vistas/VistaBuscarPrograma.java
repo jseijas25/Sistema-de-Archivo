@@ -42,6 +42,7 @@ public class VistaBuscarPrograma extends BaseVista {
         pnlPrincipal.add(pnlNombreProg, BorderLayout.CENTER);
         pnlPrincipal.add(pnlbotones, BorderLayout.SOUTH);
 
+        txtNombreProg.addKeyListener(controlador);
         btnSalir.addActionListener(controlador);
         btnBuscar.addActionListener(controlador);
 
@@ -49,7 +50,7 @@ public class VistaBuscarPrograma extends BaseVista {
         this.setResizable(false);
         this.setTitle("Buscar Programa");
         this.setVisible(true);
-        this.setSize(280,200);
+        this.setSize(280,180);
         this.setLocationRelativeTo(null);
     }
 
@@ -59,7 +60,7 @@ public class VistaBuscarPrograma extends BaseVista {
             setError("El campo Programa no puede estar vacio");
             return false;
         }
-        programa.setName(txtNombreProg.getText());
+        programa.setName(txtNombreProg.getText().toUpperCase());
 
         return true;
     }
@@ -70,5 +71,9 @@ public class VistaBuscarPrograma extends BaseVista {
 
     public JButton getBtnSalir() {
         return btnSalir;
+    }
+
+    public JTextField getTxtNombreProg() {
+        return txtNombreProg;
     }
 }

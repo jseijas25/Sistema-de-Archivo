@@ -41,7 +41,7 @@ public class ReportePdfUsuarios extends ReportePDFBase {
         detalle = new Paragraph(hora, FontFactory.getFont(FontFactory.HELVETICA, 12, Font.BOLD, BaseColor.BLACK));
         document.add(detalle);
         //-----------> titulo<-------------------------
-        detalle = new Paragraph(titulo, FontFactory.getFont(FontFactory.HELVETICA, 14, Font.UNDERLINE, BaseColor.BLACK));
+        detalle = new Paragraph("REPORTE DE USUARIOS", FontFactory.getFont(FontFactory.HELVETICA, 14, Font.UNDERLINE, BaseColor.BLACK));
 
         detalle.setAlignment(Element.ALIGN_CENTER);
         //Lo a�adimos al documento

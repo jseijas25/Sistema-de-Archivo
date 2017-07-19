@@ -28,7 +28,7 @@ public class VistaPrograma extends BaseVista {
         editable = true;
 
         lblNombreProg = new JLabel("Nombre de Programa: ");
-        txtNombreProg = new JTextField();
+        txtNombreProg = new JTextField(25);
         txtNombreProg.setEnabled(false);
 
         lblRecordCount = new JLabel("Nº de Expedientes: ");
@@ -39,11 +39,11 @@ public class VistaPrograma extends BaseVista {
 
         chkActive =new JCheckBox("Programa Activo");
 
-        pnlDatosProg = new JPanel(new GridLayout(4,2));
+        pnlDatosProg = new JPanel(new GridLayout(3,1));
         pnlDatosProg.add(lblNombreProg);
         pnlDatosProg.add(txtNombreProg);
-        pnlDatosProg.add(lblRecordCount);
-        pnlDatosProg.add(txtRecordCount);
+        //pnlDatosProg.add(lblRecordCount);
+       // pnlDatosProg.add(txtRecordCount);
         pnlDatosProg.add(chkActive);
 
         pnlLateral = new JPanel();
@@ -91,7 +91,7 @@ public class VistaPrograma extends BaseVista {
 
     public void setData(Programa programa){
         txtNombreProg.setText(String.valueOf(programa.getName().toUpperCase()));
-        txtRecordCount.setText(String.valueOf(programa.getRecordCount()));
+      //  txtRecordCount.setText(String.valueOf(programa.getRecordCount()));
         chkActive.setSelected(programa.isActive());
 
     }

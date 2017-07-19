@@ -41,6 +41,7 @@ public class VistaBuscarUsuario extends BaseVista {
         pnlPrincipal.add(pnlNombre, BorderLayout.CENTER);
         pnlPrincipal.add(pnlbotones, BorderLayout.SOUTH);
 
+        txtNombreUsuario.addKeyListener(controlador);
         btnSalir.addActionListener(controlador);
         btnBuscar.addActionListener(controlador);
 
@@ -70,4 +71,6 @@ public class VistaBuscarUsuario extends BaseVista {
     public JButton getBtnSalir() {
         return btnSalir;
     }
+
+    public JTextField getTxtNombreUsuario() {return txtNombreUsuario;}
 }

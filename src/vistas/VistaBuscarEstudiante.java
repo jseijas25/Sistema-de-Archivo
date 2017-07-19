@@ -42,6 +42,7 @@ public class VistaBuscarEstudiante extends BaseVista {
         pnlPrincipal.add(pnlcedula, BorderLayout.CENTER);
         pnlPrincipal.add(pnlbotones, BorderLayout.SOUTH);
 
+        txtCedula.addKeyListener(controlador);
         btnSalir.addActionListener(controlador);
         btnBuscar.addActionListener(controlador);
 
@@ -78,4 +79,6 @@ public class VistaBuscarEstudiante extends BaseVista {
     public JButton getBtnSalir() {
         return btnSalir;
     }
+
+    public JTextField getTxtCedula() {return txtCedula;}
 }

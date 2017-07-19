@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="SQLite -" uuid="e6d0b676-757c-49d6-bb27-56ad0edd4a2a">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+    <schema name="" catalog=""/>
+    <table name="estudiante" schema="" catalog="" type="TABLE">
+      <column name="cedula" sqlType="INT" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <column name="nombre" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
+      <column name="apellido" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
+      <column name="genero" sqlType="INT" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <column name="solvente" sqlType="INT" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <primary-key columns="cedula"/>
+      <exported-key name="#FAKE_expediente_2" table="expediente" schema="" catalog="" columns="id_estudiante"/>
+    </table>
+    <table name="expediente" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <column name="id_estudiante" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <column name="id_programa" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <column name="number" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <column name="pictures" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="cv" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="negativePhotocopy" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="grades" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="birthCertificate" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="idPhotocopy" sqlType="INTEGER" precision="2000000000" scale="10" nullable="true" jdbcType="4" def="MA=="/>
+      <primary-key columns="id"/>
+      <foreign-key name="#FAKE_expediente_1" columns="id_programa" ref-table="programa" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_expediente_2" columns="id_estudiante" ref-table="estudiante" ref-schema="" ref-catalog="" ref-columns="cedula" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="programa" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INT" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
+      <column name="active" sqlType="INT" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <column name="recordCount" sqlType="INT" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <primary-key columns="id"/>
+      <exported-key name="#FAKE_expediente_1" table="expediente" schema="" catalog="" columns="id_programa"/>
+    </table>
+    <table name="usuario" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INT" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <column name="nombre" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
+      <column name="clave" sqlType="VARCHAR" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
+      <column name="nivel" sqlType="INT" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <column name="active" sqlType="INT" precision="2000000000" scale="10" nullable="true" jdbcType="4"/>
+      <primary-key columns="id"/>
+    </table>
+  </data-source>
+</component>

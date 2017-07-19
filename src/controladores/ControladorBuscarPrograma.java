@@ -10,6 +10,7 @@ import vistas.VistaUsuario;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 public class ControladorBuscarPrograma extends BaseControlador {
     private Programa programa;
@@ -55,6 +56,14 @@ public class ControladorBuscarPrograma extends BaseControlador {
         }
         if(e.getSource().equals(vista.getBtnSalir())){
             vista.dispose();
+        }
+    }
+    @Override
+    public void keyReleased(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (event.getSource().equals(vista.getTxtNombreProg())) {
+                buscarPrograma();
+            }
         }
     }
 }

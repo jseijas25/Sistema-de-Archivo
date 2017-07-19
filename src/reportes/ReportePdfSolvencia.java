@@ -60,10 +60,9 @@ public class ReportePdfSolvencia extends ReportePDFBase {
         cuerpo1 = new Paragraph(30, "      Quien Suscribe, Ing. Elias Oswaldo Lopez Delgado encargado" +
                 " de la Oficina de Grado, del area de Postgrado de Universidad Romulo " +
                 "Gallegos, hace constar que a la(el) ciudadana (o): " + estudiante.getNombre() + " " +
-                "" + estudiante.getApellido() + ", titular de la " + "cedula de identidad: Nº V- "
-                + estudiante.getCedula() + " estudiante regular del programa de " + programa.getName()+
-                " postgrado tiene el expediente " + expediente.getNumber()+
-                " completo para poder tramitar la inscripcion del Trabajo Especial de Grado," +
+                "" + estudiante.getApellido() + ", titular de la " + "cedula de identidad: N\u00BA V- "
+                + estudiante.getCedula() + " estudiante regular del programa de Postgrado " + programa.getName()+
+                " tiene el expediente completo para poder tramitar la inscripcion del Trabajo Especial de Grado," +
                 " Trabajo de Grado y/o Tesis Doctoral. ", FontFactory.getFont(FontFactory.HELVETICA, 14, Font.NORMAL, BaseColor.BLACK));
         cuerpo1.setExtraParagraphSpace(2);
         cuerpo1.setAlignment(Element.ALIGN_JUSTIFIED);
@@ -73,7 +72,7 @@ public class ReportePdfSolvencia extends ReportePDFBase {
 
         cuerpo2 = new Paragraph(30, "      Constancia que se expide a peticion de parte interesada en la ciudad de San" +
                 " Juan de los Morros, a los " + fecha_dia + " dias del mes de " +
-                fecha_mes_largo + " del año: " + fecha_anyo + ".", FontFactory.getFont(FontFactory.HELVETICA, 14, Font.NORMAL, BaseColor.BLACK));
+                fecha_mes_largo + " del a\u00F1o: " + fecha_anyo + ".", FontFactory.getFont(FontFactory.HELVETICA, 14, Font.NORMAL, BaseColor.BLACK));
         cuerpo2.setAlignment(Element.ALIGN_JUSTIFIED);
         document.add(cuerpo2);
         document.add(Chunk.NEWLINE);

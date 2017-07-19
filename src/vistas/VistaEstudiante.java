@@ -112,12 +112,12 @@ public class VistaEstudiante extends BaseVista {
             setError("El campo \"Nombre\" no puede estar vacio");
             return false;
         }
-        estudiante.setNombre(txtNombre.getText());
+        estudiante.setNombre(txtNombre.getText().toUpperCase());
         if(txtApellido.getText().isEmpty()){
             setError("El campo \"Apellido\" no puede estar vacio");
             return false;
         }
-        estudiante.setApellido(txtApellido.getText());
+        estudiante.setApellido(txtApellido.getText().toUpperCase());
         if(rdbHombre.isSelected()){
             estudiante.setGenero(0);
         }else if(rdbMujer.isSelected()){
@@ -146,7 +146,7 @@ public class VistaEstudiante extends BaseVista {
             pestanaExpedientes.get(i).setControlador(controlador);
             tbbExpediente.addTab("Expediente: "+i, pestanaExpedientes.get(i));
         }
-        int index = tbbExpediente.getTabCount()-1;
+        int index = tbbExpediente.getTabCount()-1 < 0 ? tbbExpediente.getTabCount() : tbbExpediente.getTabCount()-1;
         tbbExpediente.addTab("+", pnlNuevoExpediente);
         tbbExpediente.setSelectedIndex(index);
         this.pack();

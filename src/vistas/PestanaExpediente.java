@@ -48,16 +48,16 @@ public class PestanaExpediente extends JPanel {
             nombres_programas[i] = programas.get(i).getName();
         }
 
-        lblPrograma = new JLabel("Programa: ");
+        lblPrograma = new JLabel("Programa ");
         boxPrograma = new JComboBox<>(nombres_programas);
 
         lblFotos = new JLabel("2 Fotos ");
         chkFotos = new JCheckBox();
 
-        lblNotas = new JLabel("Fotocopia de la Notas Cert. ");
+        lblNotas = new JLabel("Fotocopia de las Notas Certificadas ");
         chkNotas = new JCheckBox();
 
-        lblCV = new JLabel("Sintesis Curricular: ");
+        lblCV = new JLabel("Sintesis Curricular ");
         chkCV = new JCheckBox();
 
         lblNegativo = new JLabel("Fondo Negro Autenticado: ");
@@ -66,7 +66,7 @@ public class PestanaExpediente extends JPanel {
         lblPartida = new JLabel("Fotocopia de la P.N");
         chkPartida = new JCheckBox();
 
-        lblCedula = new JLabel("Fotocopia C.I: ");
+        lblCedula = new JLabel("Fotocopia de la C.I: ");
         chkCedula = new JCheckBox();
 
 
@@ -84,6 +84,7 @@ public class PestanaExpediente extends JPanel {
                 pnlTres.add(btnBorrar);
                 pnlTres.add(btnSolvencia);
                 boxPrograma.setEnabled(false);
+                txtNumero.setEnabled(false);
                 setEditable();
                 break;
             case CREATE:
@@ -107,18 +108,19 @@ public class PestanaExpediente extends JPanel {
         }
         pnlUno.add(lblPrograma);
         pnlUno.add(boxPrograma);
-        pnlUno.add(lblFotos);
-        pnlUno.add(chkFotos);
-        pnlUno.add(lblNotas);
-        pnlUno.add(chkNotas);
+
         pnlUno.add(lblCV);
         pnlUno.add(chkCV);
-        pnlUno.add(lblNegativo);
-        pnlUno.add(chkNegativo);
-        pnlUno.add(lblPartida);
-        pnlUno.add(chkPartida);
+        pnlUno.add(lblFotos);
+        pnlUno.add(chkFotos);
         pnlUno.add(lblCedula);
         pnlUno.add(chkCedula);
+        pnlUno.add(lblNegativo);
+        pnlUno.add(chkNegativo);
+        pnlUno.add(lblNotas);
+        pnlUno.add(chkNotas);
+        pnlUno.add(lblPartida);
+        pnlUno.add(chkPartida);
 
         this.setLayout(new BorderLayout());
         this.add(pnlUno, BorderLayout.CENTER);
@@ -141,11 +143,10 @@ public class PestanaExpediente extends JPanel {
             if(chkAuto.isSelected()){
                 int number = 1;
                 for(Expediente e : expedientes){
-                    if (e.getNumber() != number) {
+                    if (e.getNumber() != number){
                         break;
-                    } else {
-                        number++;
                     }
+                    number++;
                 }
                 expediente.setNumber(number);
             }else{
@@ -217,7 +218,6 @@ public class PestanaExpediente extends JPanel {
                 btnEditar.setText("Guardar");
             }
         }
-        txtNumero.setEnabled(editable);
         chkCedula.setEnabled(editable);
         chkNotas.setEnabled(editable);
         chkPartida.setEnabled(editable);

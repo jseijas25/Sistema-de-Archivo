@@ -52,7 +52,7 @@ public class ExpedienteDAO {
         programa.setName(nombrePrograma);
         ProgramaDAO.read(programa);
         try {
-            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("SELECT * FROM  expediente WHERE id_programa=? ORDER BY id");
+            PreparedStatement ps = _Con.getInstance().getConnectionDB().prepareStatement("SELECT * FROM  expediente WHERE id_programa=? ORDER BY number");
             ps.setInt(1, programa.getId());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

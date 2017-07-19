@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Sistema:jar">
+    <output-path>$PROJECT_DIR$/classes/artifacts/Sistema_jar</output-path>
+    <root id="archive" name="Sistema.jar">
+      <element id="module-output" name="Sistema" />
+      <element id="library" level="module" name="itext-xtra-5.1.1-javadoc.jar" module-name="Sistema" />
+      <element id="library" level="module" name="itext-xtra-5.1.1-sources.jar" module-name="Sistema" />
+      <element id="library" level="module" name="itext-xtra-5.1.1.jar" module-name="Sistema" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/xerial/sqlite-jdbc/3.8.10.1/sqlite-jdbc-3.8.10.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/itextpdf/itextpdf/5.4.1/itextpdf-5.4.1.jar" path-in-jar="/" />
+      <element id="library" level="module" name="itextpdf-5.1.1-sources.jar" module-name="Sistema" />
+      <element id="library" level="module" name="itextpdf-5.1.1.jar" module-name="Sistema" />
+      <element id="library" level="module" name="itextpdf-5.1.1-javadoc.jar" module-name="Sistema" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/apache-codec/commons-codec/1.2/commons-codec-1.2.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

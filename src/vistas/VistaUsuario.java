@@ -106,8 +106,8 @@ public class VistaUsuario extends BaseVista {
 
     public void setData(Usuario usuario){
         txtNombreUsuario.setText(usuario.getNombre());
-        //pwdClave.setText(usuario.getClave());
-        cmbNivel.setSelectedItem(String.valueOf(usuario.getNivel()));
+        pwdClave.setText(usuario.getClave());
+        cmbNivel.setSelectedItem(usuario.getNivel());
         active.setSelected(usuario.isActive());
 
     }
